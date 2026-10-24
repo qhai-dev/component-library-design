@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "shadcn-semi-design/styles";
+
+@layer base {
+  html {
+    @apply bg-background text-foreground;
+  }
+}

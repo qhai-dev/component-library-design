@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["react", "react-dom", "@testing-library/jest-dom", "node"]
+  },
+  "include": ["src", ".storybook", "vitest.setup.ts", "tsdown.config.ts"]
+}

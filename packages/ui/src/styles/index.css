@@ -1,0 +1,134 @@
+/*
+ * shadcn-semi-design styles entry.
+ *
+ * Consumers with Tailwind CSS v4:
+ *   @import "tailwindcss";
+ *   @import "shadcn-semi-design/styles";
+ *
+ * Contents:
+ *   1. Semi Design tokens (palette + semantic vars; `.dark` flips automatically)
+ *   2. Runtime base (data-* state variants, keyframes, scroll utilities)
+ *   3. Animation utilities (tw-animate-css)
+ *   4. The Semi skin: global `.cn-*` rules used by the components
+ *   5. Theme mapping: shadcn variables -> Semi variables + fixed radius scale
+ */
+
+@import "./semi-tokens.css";
+@import "./base.css";
+@import "tw-animate-css";
+@import "./skin.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Semi Design typography fallbacks (Inter is the primary family) */
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
+  /* Semi Design radius system: small 3px (controls) / medium 6px (menus, cards) / large 12px (modal) */
+  --radius-sm: 3px;
+  --radius-md: 3px;
+  --radius-lg: 3px;
+  --radius-xl: 6px;
+  --radius-2xl: 6px;
+  --radius-3xl: 12px;
+  --radius-4xl: 12px;
+
+  /* Semi floating-surface shadow */
+  --shadow-elevated: var(--semi-shadow-elevated);
+
+  /* shadcn color utilities -> Semi-mapped variables */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+ * All shadcn tokens map 1:1 onto Semi Design tokens (see ./semi-tokens.css).
+ * Light/dark flipping is driven by the --semi-* variables under `.dark`,
+ * so no `.dark` overrides are needed here.
+ */
+:root {
+  --radius: 0.1875rem; /* 3px — kept for compatibility; the scale above is fixed to Semi values */
+  --background: var(--semi-color-bg-0);
+  --foreground: var(--semi-color-text-0);
+  --card: var(--semi-color-bg-0);
+  --card-foreground: var(--semi-color-text-0);
+  --popover: var(--semi-color-bg-3);
+  --popover-foreground: var(--semi-color-text-0);
+  --primary: var(--semi-color-primary);
+  --primary-foreground: var(--semi-color-white);
+  /* Semi tertiary solid button (grey) */
+  --secondary: var(--semi-color-tertiary);
+  --secondary-foreground: var(--semi-color-white);
+  --muted: var(--semi-color-fill-0);
+  --muted-foreground: var(--semi-color-text-2);
+  --accent: var(--semi-color-fill-0);
+  --accent-foreground: var(--semi-color-text-0);
+  --destructive: var(--semi-color-danger);
+  --destructive-foreground: var(--semi-color-white);
+  --border: var(--semi-color-border);
+  --input: var(--semi-color-border);
+  --ring: var(--semi-color-primary-light-active);
+  /* Semi vchart data palette */
+  --chart-1: var(--semi-color-data-0);
+  --chart-2: var(--semi-color-data-1);
+  --chart-3: var(--semi-color-data-2);
+  --chart-4: var(--semi-color-data-3);
+  --chart-5: var(--semi-color-data-4);
+  --sidebar: var(--semi-color-nav-bg);
+  --sidebar-foreground: var(--semi-color-text-0);
+  --sidebar-primary: var(--semi-color-primary);
+  --sidebar-primary-foreground: var(--semi-color-white);
+  --sidebar-accent: var(--semi-color-fill-0);
+  --sidebar-accent-foreground: var(--semi-color-text-0);
+  --sidebar-border: var(--semi-color-border);
+  --sidebar-ring: var(--semi-color-primary-light-active);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    /* Semi Design base text: 14px / 20px */
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+}

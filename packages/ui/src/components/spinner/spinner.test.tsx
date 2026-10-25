@@ -1,9 +1,9 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { Spinner } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Spinner } from "./index";
 
 describe("Spinner", () => {
   it("renders", () => {
-    render(<Spinner />)
-  })
-})
+    render(<Spinner />);
+  });
+});

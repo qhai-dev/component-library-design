@@ -1,12 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./index";
 
 describe("Select", () => {
   it("renders", () => {
@@ -19,6 +13,6 @@ describe("Select", () => {
           <SelectItem value="a">Option A</SelectItem>
         </SelectContent>
       </Select>,
-    )
-  })
-})
+    );
+  });
+});

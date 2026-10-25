@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   Table,
   TableHeader,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableCell,
   TableCaption,
-} from "./index"
+} from "./index";
 
 describe("Table", () => {
   it("renders", () => {
@@ -26,6 +26,6 @@ describe("Table", () => {
         </TableBody>
         <TableCaption>Caption</TableCaption>
       </Table>,
-    )
-  })
-})
+    );
+  });
+});

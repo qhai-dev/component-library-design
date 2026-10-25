@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { Marker, MarkerIcon, MarkerContent } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Marker, MarkerIcon, MarkerContent } from "./index";
 
 describe("Marker", () => {
   it("renders", () => {
@@ -9,6 +9,6 @@ describe("Marker", () => {
         <MarkerIcon />
         <MarkerContent>Divider</MarkerContent>
       </Marker>,
-    )
-  })
-})
+    );
+  });
+});

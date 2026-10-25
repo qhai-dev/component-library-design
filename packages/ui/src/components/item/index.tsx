@@ -1,10 +1,10 @@
-import * as React from "react"
-import { mergeProps } from "@base-ui/react/merge-props"
-import { useRender } from "@base-ui/react/use-render"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "cn";
 
-import { Separator } from "../separator"
+import { Separator } from "../separator";
 
 function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -12,41 +12,38 @@ function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
       role="list"
       data-slot="item-group"
       className={cn(
-        "cn-item-group group/item-group flex w-full flex-col",
+        "gap-4 has-data-[size=sm]:gap-2.5 has-data-[size=xs]:gap-2 group/item-group flex w-full flex-col",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-function ItemSeparator({
-  className,
-  ...props
-}: React.ComponentProps<typeof Separator>) {
+function ItemSeparator({ className, ...props }: React.ComponentProps<typeof Separator>) {
   return (
     <Separator
       data-slot="item-separator"
       orientation="horizontal"
-      className={cn("cn-item-separator", className)}
+      className={cn("my-2", className)}
       {...props}
     />
-  )
+  );
 }
 
 const itemVariants = cva(
-  "cn-item group/item flex w-full flex-wrap items-center  duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors",
+  "rounded-lg border text-sm [a]:hover:bg-muted group/item flex w-full flex-wrap items-center duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors",
   {
     variants: {
       variant: {
-        default: "cn-item-variant-default",
-        outline: "cn-item-variant-outline",
-        muted: "cn-item-variant-muted",
+        default: "border-transparent",
+        outline: "border-border",
+        muted: "border-transparent bg-muted/50",
       },
       size: {
-        default: "cn-item-size-default",
-        sm: "cn-item-size-sm",
-        xs: "cn-item-size-xs",
+        default: "gap-2.5 px-3 py-2.5",
+        sm: "gap-2.5 px-3 py-2.5",
+        xs: "gap-2 px-2.5 py-2 in-data-[slot=dropdown-menu-content]:p-0",
       },
     },
     defaultVariants: {
@@ -54,7 +51,7 @@ const itemVariants = cva(
       size: "default",
     },
   },
-)
+);
 
 function Item({
   className,
@@ -77,24 +74,25 @@ function Item({
       variant,
       size,
     },
-  })
+  });
 }
 
 const itemMediaVariants = cva(
-  "cn-item-media flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
+  "gap-2 group-has-data-[slot=item-description]/item:translate-y-0.5 group-has-data-[slot=item-description]/item:self-start flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
   {
     variants: {
       variant: {
-        default: "cn-item-media-variant-default",
-        icon: "cn-item-media-variant-icon",
-        image: "cn-item-media-variant-image",
+        default: "bg-transparent",
+        icon: "[&_svg:not([class*='size-'])]:size-4",
+        image:
+          "size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover",
       },
     },
     defaultVariants: {
       variant: "default",
     },
   },
-)
+);
 
 function ItemMedia({
   className,
@@ -108,7 +106,7 @@ function ItemMedia({
       className={cn(itemMediaVariants({ variant, className }))}
       {...props}
     />
-  )
+  );
 }
 
 function ItemContent({ className, ...props }: React.ComponentProps<"div">) {
@@ -116,12 +114,12 @@ function ItemContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="item-content"
       className={cn(
-        "cn-item-content flex flex-1 flex-col [&+[data-slot=item-content]]:flex-none",
+        "gap-1 group-data-[size=xs]/item:gap-0 flex flex-1 flex-col [&+[data-slot=item-content]]:flex-none",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function ItemTitle({ className, ...props }: React.ComponentProps<"div">) {
@@ -129,12 +127,12 @@ function ItemTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="item-title"
       className={cn(
-        "cn-item-title line-clamp-1 flex w-fit items-center",
+        "gap-2 text-sm leading-snug font-medium underline-offset-4 line-clamp-1 flex w-fit items-center",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function ItemDescription({ className, ...props }: React.ComponentProps<"p">) {
@@ -142,48 +140,38 @@ function ItemDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="item-description"
       className={cn(
-        "cn-item-description line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "text-left text-sm leading-normal text-muted-foreground group-data-[size=xs]/item:text-xs line-clamp-2 font-normal [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function ItemActions({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      data-slot="item-actions"
-      className={cn("cn-item-actions flex items-center", className)}
-      {...props}
-    />
-  )
+    <div data-slot="item-actions" className={cn("gap-2 flex items-center", className)} {...props} />
+  );
 }
 
 function ItemHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="item-header"
-      className={cn(
-        "cn-item-header flex basis-full items-center justify-between",
-        className,
-      )}
+      className={cn("gap-2 flex basis-full items-center justify-between", className)}
       {...props}
     />
-  )
+  );
 }
 
 function ItemFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="item-footer"
-      className={cn(
-        "cn-item-footer flex basis-full items-center justify-between",
-        className,
-      )}
+      className={cn("gap-2 flex basis-full items-center justify-between", className)}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -197,4 +185,4 @@ export {
   ItemDescription,
   ItemHeader,
   ItemFooter,
-}
+};

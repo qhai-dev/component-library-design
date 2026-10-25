@@ -1,10 +1,10 @@
-import { RadioGroup, RadioGroupItem } from "./index"
+import { RadioGroup, RadioGroupItem } from "./index";
 
 const meta = {
   title: "Components/RadioGroup",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,4 +13,4 @@ export const Default = {
       <RadioGroupItem value="b" aria-label="B" />
     </RadioGroup>
   ),
-}
+};

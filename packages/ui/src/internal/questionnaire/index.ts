@@ -15,7 +15,7 @@ import {
   QuestionnaireSkip as Skip,
   QuestionnaireSubmit as Submit,
   QuestionnaireTitle as Title,
-} from "./components"
+} from "./components";
 
 export const Questionnaire = {
   Root,
@@ -34,7 +34,7 @@ export const Questionnaire = {
   Skip,
   Next,
   Submit,
-}
+};
 
 export type {
   QuestionnaireChoiceDefinition,
@@ -42,4 +42,4 @@ export type {
   QuestionnaireItemDefinition,
   QuestionnaireItemStatus,
   QuestionnaireShortcutMode,
-} from "./types"
+} from "./types";

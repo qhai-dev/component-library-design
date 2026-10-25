@@ -1,16 +1,13 @@
-import * as React from "react"
+import * as React from "react";
 
-import { useQuestionnaireItemContext } from "./context"
-import type {
-  QuestionnaireChoiceProps,
-  QuestionnaireChoiceState,
-} from "./types"
-import { getAnswerKeyShortcuts } from "./utils"
+import { useQuestionnaireItemContext } from "./context";
+import type { QuestionnaireChoiceProps, QuestionnaireChoiceState } from "./types";
+import { getAnswerKeyShortcuts } from "./utils";
 
 type UseQuestionnaireChoiceParameters = Pick<
   QuestionnaireChoiceProps,
   "checked" | "defaultChecked" | "disabled" | "onChange" | "value"
->
+>;
 
 function useQuestionnaireChoice({
   checked: controlledChecked,
@@ -36,37 +33,29 @@ function useQuestionnaireChoice({
     shortcutByChoiceValue,
     status,
     syncControlledAnswerSelection,
-  } = useQuestionnaireItemContext("Questionnaire.Choice")
-  const answerId = React.useId()
-  const [inputElement, setInputElement] =
-    React.useState<HTMLInputElement | null>(null)
-  const initialDefaultCheckedRef = React.useRef(defaultChecked)
-  const controlled = controlledChecked !== undefined
-  const disabled = itemDisabled || choiceDisabled
-  const selected = selectedAnswerIds.includes(answerId)
-  const checked = controlled
-    ? status === "skipped"
-      ? false
-      : controlledChecked
-    : selected
-  const type = multiple ? "checkbox" : "radio"
-  const shortcut =
-    shortcutByChoiceValue?.get(value) ??
-    shortcutByAnswerId.get(answerId) ??
-    null
+  } = useQuestionnaireItemContext("Questionnaire.Choice");
+  const answerId = React.useId();
+  const [inputElement, setInputElement] = React.useState<HTMLInputElement | null>(null);
+  const initialDefaultCheckedRef = React.useRef(defaultChecked);
+  const controlled = controlledChecked !== undefined;
+  const disabled = itemDisabled || choiceDisabled;
+  const selected = selectedAnswerIds.includes(answerId);
+  const checked = controlled ? (status === "skipped" ? false : controlledChecked) : selected;
+  const type = multiple ? "checkbox" : "radio";
+  const shortcut = shortcutByChoiceValue?.get(value) ?? shortcutByAnswerId.get(answerId) ?? null;
 
   React.useLayoutEffect(
     () => registerAnswerSelection(answerId, initialDefaultCheckedRef.current),
     [answerId, registerAnswerSelection],
-  )
+  );
   React.useLayoutEffect(
     () => setAnswerDefault(answerId, defaultChecked),
     [answerId, defaultChecked, setAnswerDefault],
-  )
+  );
 
   React.useLayoutEffect(() => {
     if (!inputElement) {
-      return
+      return;
     }
 
     return registerAnswerControl({
@@ -76,65 +65,43 @@ function useQuestionnaireChoice({
       ownDisabled: choiceDisabled,
       type: "choice",
       value,
-    })
-  }, [
-    answerId,
-    choiceDisabled,
-    disabled,
-    inputElement,
-    registerAnswerControl,
-    value,
-  ])
+    });
+  }, [answerId, choiceDisabled, disabled, inputElement, registerAnswerControl, value]);
 
   React.useLayoutEffect(() => {
     if (controlled) {
-      syncControlledAnswerSelection(answerId, controlledChecked)
+      syncControlledAnswerSelection(answerId, controlledChecked);
     }
-  }, [
-    answerId,
-    controlled,
-    controlledChecked,
-    resetVersion,
-    syncControlledAnswerSelection,
-  ])
+  }, [answerId, controlled, controlledChecked, resetVersion, syncControlledAnswerSelection]);
 
   React.useLayoutEffect(() => {
     if (!inputElement) {
-      return
+      return;
     }
 
     // Keep the native reset target aligned with Questionnaire's owned default,
     // including controlled choices whose checked prop remains authoritative.
-    inputElement.defaultChecked = controlled
-      ? controlledChecked
-      : defaultChecked
+    inputElement.defaultChecked = controlled ? controlledChecked : defaultChecked;
 
     if (resetVersion > 0) {
-      inputElement.checked = checked
+      inputElement.checked = checked;
     }
-  }, [
-    checked,
-    controlled,
-    controlledChecked,
-    defaultChecked,
-    inputElement,
-    resetVersion,
-  ])
+  }, [checked, controlled, controlledChecked, defaultChecked, inputElement, resetVersion]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    onChange?.(event)
+    onChange?.(event);
 
     if (event.defaultPrevented) {
-      return
+      return;
     }
 
     if (!controlled) {
-      setAnswerSelectionFromInteraction(answerId, event.target.checked)
-      return
+      setAnswerSelectionFromInteraction(answerId, event.target.checked);
+      return;
     }
 
     if (status === "skipped" && controlledChecked === event.target.checked) {
-      setAnswerSelectionFromInteraction(answerId, controlledChecked)
+      setAnswerSelectionFromInteraction(answerId, controlledChecked);
     }
   }
 
@@ -144,16 +111,13 @@ function useQuestionnaireChoice({
     invalid,
     shortcut,
     type,
-  }
+  };
 
   return {
     inputProps: {
       ref: setInputElement,
       "aria-invalid": invalid || undefined,
-      "aria-keyshortcuts": getAnswerKeyShortcuts(
-        shortcut,
-        !disabled && checked,
-      ),
+      "aria-keyshortcuts": getAnswerKeyShortcuts(shortcut, !disabled && checked),
       checked,
       disabled,
       id: answerId,
@@ -164,7 +128,7 @@ function useQuestionnaireChoice({
       value,
     },
     state,
-  }
+  };
 }
 
-export { useQuestionnaireChoice }
+export { useQuestionnaireChoice };

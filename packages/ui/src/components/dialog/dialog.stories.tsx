@@ -5,13 +5,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Dialog",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -25,4 +25,4 @@ export const Default = {
       </DialogContent>
     </Dialog>
   ),
-}
+};

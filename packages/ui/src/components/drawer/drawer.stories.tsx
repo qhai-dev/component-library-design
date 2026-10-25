@@ -5,13 +5,13 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerDescription,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Drawer",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -25,4 +25,4 @@ export const Default = {
       </DrawerContent>
     </Drawer>
   ),
-}
+};

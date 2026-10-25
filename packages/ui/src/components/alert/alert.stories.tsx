@@ -1,10 +1,10 @@
-import { Alert, AlertTitle, AlertDescription } from "./index"
+import { Alert, AlertTitle, AlertDescription } from "./index";
 
 const meta = {
   title: "Components/Alert",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,7 +13,7 @@ export const Default = {
       <AlertDescription>Something happened.</AlertDescription>
     </Alert>
   ),
-}
+};
 
 export const Types = {
   render: () => (
@@ -28,4 +28,4 @@ export const Types = {
       </Alert>
     </div>
   ),
-}
+};

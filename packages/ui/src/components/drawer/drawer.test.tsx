@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   Drawer,
   DrawerTrigger,
@@ -7,7 +7,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerDescription,
-} from "./index"
+} from "./index";
 
 describe("Drawer", () => {
   it("renders", () => {
@@ -21,6 +21,6 @@ describe("Drawer", () => {
           </DrawerHeader>
         </DrawerContent>
       </Drawer>,
-    )
-  })
-})
+    );
+  });
+});

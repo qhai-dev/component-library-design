@@ -1,38 +1,45 @@
-import * as React from "react"
-import { mergeProps } from "@base-ui/react/merge-props"
-import { useRender } from "@base-ui/react/use-render"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "cn";
 
 function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="bubble-group"
-      className={cn("cn-bubble-group flex min-w-0 flex-col", className)}
+      className={cn("gap-2 flex min-w-0 flex-col", className)}
       {...props}
     />
-  )
+  );
 }
 
 const bubbleVariants = cva(
-  "cn-bubble group/bubble relative flex w-fit min-w-0 flex-col",
+  "max-w-[80%] gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full group/bubble relative flex w-fit min-w-0 flex-col",
   {
     variants: {
       variant: {
-        default: "cn-bubble-variant-default",
-        secondary: "cn-bubble-variant-secondary",
-        muted: "cn-bubble-variant-muted",
-        tinted: "cn-bubble-variant-tinted",
-        outline: "cn-bubble-variant-outline",
-        ghost: "cn-bubble-variant-ghost",
-        destructive: "cn-bubble-variant-destructive",
+        default:
+          "*:data-[slot=bubble-content]:bg-primary *:data-[slot=bubble-content]:text-primary-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-primary-hover",
+        secondary:
+          "*:data-[slot=bubble-content]:bg-muted *:data-[slot=bubble-content]:text-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted-hover",
+        muted:
+          "*:data-[slot=bubble-content]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted-hover",
+        tinted:
+          "*:data-[slot=bubble-content]:bg-primary-light *:data-[slot=bubble-content]:text-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-primary-light-hover",
+        outline:
+          "*:data-[slot=bubble-content]:border-border *:data-[slot=bubble-content]:bg-background [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground",
+        ghost:
+          "border-none *:data-[slot=bubble-content]:rounded-none *:data-[slot=bubble-content]:bg-transparent *:data-[slot=bubble-content]:p-0 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground",
+        destructive:
+          "*:data-[slot=bubble-content]:bg-destructive-light *:data-[slot=bubble-content]:text-destructive [&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive-light-hover",
       },
     },
     defaultVariants: {
       variant: "default",
     },
   },
-)
+);
 
 function Bubble({
   variant = "default",
@@ -41,7 +48,7 @@ function Bubble({
   ...props
 }: React.ComponentProps<"div"> &
   VariantProps<typeof bubbleVariants> & {
-    align?: "start" | "end"
+    align?: "start" | "end";
   }) {
   return (
     <div
@@ -51,20 +58,16 @@ function Bubble({
       className={cn(bubbleVariants({ variant }), className)}
       {...props}
     />
-  )
+  );
 }
 
-function BubbleContent({
-  className,
-  render,
-  ...props
-}: useRender.ComponentProps<"div">) {
+function BubbleContent({ className, render, ...props }: useRender.ComponentProps<"div">) {
   return useRender({
     defaultTagName: "div",
     props: mergeProps<"div">(
       {
         className: cn(
-          "cn-bubble-content w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
+          "rounded-3xl border border-transparent px-3 py-2 text-sm leading-relaxed group-data-[align=end]/bubble:self-end [button,a]:outline-none [button,a]:focus-visible:outline-2 [button,a]:focus-visible:outline-ring w-fit max-w-full min-w-0 overflow-hidden wrap-break-word [button]:text-left [button,a]:transition-colors",
           className,
         ),
       },
@@ -74,20 +77,20 @@ function BubbleContent({
     state: {
       slot: "bubble-content",
     },
-  })
+  });
 }
 
 const bubbleReactionsVariants = cva(
-  "cn-bubble-reactions absolute z-10 flex w-fit items-center justify-center",
+  "shrink-0 gap-1 rounded-full bg-muted px-1.5 py-0.5 text-sm shadow-elevated has-[button]:p-0 absolute z-10 flex w-fit items-center justify-center",
   {
     variants: {
       side: {
-        top: "cn-bubble-reactions-side-top",
-        bottom: "cn-bubble-reactions-side-bottom",
+        top: "top-0 -translate-y-3/4",
+        bottom: "bottom-0 translate-y-3/4",
       },
       align: {
-        start: "cn-bubble-reactions-align-start",
-        end: "cn-bubble-reactions-align-end",
+        start: "left-3",
+        end: "right-3",
       },
     },
     defaultVariants: {
@@ -95,7 +98,7 @@ const bubbleReactionsVariants = cva(
       align: "end",
     },
   },
-)
+);
 
 function BubbleReactions({
   side = "bottom",
@@ -103,8 +106,8 @@ function BubbleReactions({
   className,
   ...props
 }: React.ComponentProps<"div"> & {
-  align?: "start" | "end"
-  side?: "top" | "bottom"
+  align?: "start" | "end";
+  side?: "top" | "bottom";
 }) {
   return (
     <div
@@ -114,7 +117,7 @@ function BubbleReactions({
       className={cn(bubbleReactionsVariants({ side, align }), className)}
       {...props}
     />
-  )
+  );
 }
 
-export { BubbleGroup, Bubble, BubbleContent, BubbleReactions }
+export { BubbleGroup, Bubble, BubbleContent, BubbleReactions };

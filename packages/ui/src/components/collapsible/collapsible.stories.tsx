@@ -1,10 +1,10 @@
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "./index"
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "./index";
 
 const meta = {
   title: "Components/Collapsible",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,4 +13,4 @@ export const Default = {
       <CollapsibleContent>Hidden</CollapsibleContent>
     </Collapsible>
   ),
-}
+};

@@ -1,14 +1,14 @@
-import { Switch } from "./index"
+import { Switch } from "./index";
 
 const meta = {
   title: "Components/Switch",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => <Switch aria-label="toggle" />,
-}
+};
 
 export const States = {
   render: () => (
@@ -18,4 +18,4 @@ export const States = {
       <Switch size="sm" defaultChecked aria-label="small" />
     </div>
   ),
-}
+};

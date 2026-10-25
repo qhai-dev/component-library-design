@@ -1,10 +1,10 @@
-import { Marker, MarkerIcon, MarkerContent } from "./index"
+import { Marker, MarkerIcon, MarkerContent } from "./index";
 
 const meta = {
   title: "Components/Marker",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,4 +13,4 @@ export const Default = {
       <MarkerContent>Divider</MarkerContent>
     </Marker>
   ),
-}
+};

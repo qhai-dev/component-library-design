@@ -2,6 +2,10 @@
   "name": "shadcn-semi-design",
   "version": "0.1.0",
   "description": "shadcn/ui architecture with a 1:1 Semi Design visual language, built on Base UI",
+  "files": [
+    "dist",
+    "src/styles"
+  ],
   "type": "module",
   "sideEffects": [
     "**/*.css"
@@ -17,10 +21,6 @@
     "./styles": "./src/styles/index.css",
     "./styles/*": "./src/styles/*"
   },
-  "files": [
-    "dist",
-    "src/styles"
-  ],
   "scripts": {
     "build": "tsdown",
     "test": "vitest run",
@@ -30,15 +30,11 @@
     "build-storybook": "storybook build",
     "typecheck": "tsc --noEmit"
   },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
-  },
   "dependencies": {
     "@base-ui/react": "1.6.0",
     "class-variance-authority": "^0.7.1",
-    "cn": "^0.2.2",
     "cmdk": "^1.1.1",
+    "cn": "^0.2.2",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.514.0",
@@ -72,6 +68,10 @@
     "typescript": "^5.8.0",
     "vitest": "^3.2.0",
     "wait-on": "^9.5.1"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "engines": {
     "node": ">=20"

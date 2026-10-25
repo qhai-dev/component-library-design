@@ -10,13 +10,13 @@
     "test-storybook": "pnpm --filter shadcn-semi-design test-storybook",
     "storybook": "pnpm --filter shadcn-semi-design storybook",
     "build-storybook": "pnpm --filter shadcn-semi-design build-storybook",
-    "dev:playground": "pnpm --filter playground dev",
-    "dev:playground:src": "pnpm --filter playground dev:src",
     "typecheck": "pnpm -r typecheck",
-    "lint": "oxlint -c oxlint.config.ts packages apps scripts",
-    "lint:fix": "oxlint -c oxlint.config.ts --fix packages apps scripts",
+    "lint": "oxlint -c oxlint.config.ts packages playground",
+    "lint:fix": "oxlint -c oxlint.config.ts --fix packages playground",
     "format": "oxfmt -c oxfmt.config.ts .",
-    "format:check": "oxfmt -c oxfmt.config.ts --check ."
+    "format:check": "oxfmt -c oxfmt.config.ts --check .",
+    "dev:docs": "pnpm --filter docs dev",
+    "dev:docs:src": "pnpm --filter docs dev:src"
   },
   "devDependencies": {
     "oxfmt": "^0.74.0",

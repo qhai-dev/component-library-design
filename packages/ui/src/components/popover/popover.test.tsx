@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   Popover,
   PopoverTrigger,
@@ -7,7 +7,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverDescription,
-} from "./index"
+} from "./index";
 
 describe("Popover", () => {
   it("renders", () => {
@@ -21,6 +21,6 @@ describe("Popover", () => {
           </PopoverHeader>
         </PopoverContent>
       </Popover>,
-    )
-  })
-})
+    );
+  });
+});

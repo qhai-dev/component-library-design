@@ -5,13 +5,13 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Breadcrumb",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -27,4 +27,4 @@ export const Default = {
       </BreadcrumbList>
     </Breadcrumb>
   ),
-}
+};

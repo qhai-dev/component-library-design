@@ -1,10 +1,10 @@
-import { Avatar, AvatarFallback } from "./index"
+import { Avatar, AvatarFallback } from "./index";
 
 const meta = {
   title: "Components/Avatar",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -12,4 +12,4 @@ export const Default = {
       <AvatarFallback>SD</AvatarFallback>
     </Avatar>
   ),
-}
+};

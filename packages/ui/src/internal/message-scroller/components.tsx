@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 
-import { composeRefs, mergeProps, useRender } from "../use-render"
-import { USER_SCROLL_KEYS } from "./types"
+import { composeRefs, mergeProps, useRender } from "../use-render";
+import { USER_SCROLL_KEYS } from "./types";
 import type {
   MessageScrollerButtonProps,
   MessageScrollerContentProps,
@@ -11,40 +11,35 @@ import type {
   MessageScrollerProviderProps,
   MessageScrollerRegisterMessage,
   MessageScrollerViewportProps,
-} from "./types"
-import { useMessageScrollerController } from "./use-message-scroller-controller"
-import { useLatest } from "./utils"
+} from "./types";
+import { useMessageScrollerController } from "./use-message-scroller-controller";
+import { useLatest } from "./utils";
 
-const MessageScrollerContext =
-  React.createContext<MessageScrollerContextValue | null>(null)
-const MessageScrollerItemContext =
-  React.createContext<MessageScrollerRegisterMessage | null>(null)
+const MessageScrollerContext = React.createContext<MessageScrollerContextValue | null>(null);
+const MessageScrollerItemContext = React.createContext<MessageScrollerRegisterMessage | null>(null);
 
 function useMessageScrollerContext() {
-  const context = React.useContext(MessageScrollerContext)
+  const context = React.useContext(MessageScrollerContext);
 
   if (!context) {
-    throw new Error("useMessageScroller must be used within a MessageScroller.")
+    throw new Error("useMessageScroller must be used within a MessageScroller.");
   }
 
-  return context
+  return context;
 }
 
 function useMessageScrollerItemContext() {
-  const context = React.useContext(MessageScrollerItemContext)
+  const context = React.useContext(MessageScrollerItemContext);
 
   if (!context) {
-    throw new Error(
-      "MessageScrollerItem must be used within a MessageScroller.",
-    )
+    throw new Error("MessageScrollerItem must be used within a MessageScroller.");
   }
 
-  return context
+  return context;
 }
 
 function useMessageScroller() {
-  const { scrollToEnd, scrollToMessage, scrollToStart } =
-    useMessageScrollerContext()
+  const { scrollToEnd, scrollToMessage, scrollToStart } = useMessageScrollerContext();
 
   return React.useMemo(
     () => ({
@@ -53,37 +48,32 @@ function useMessageScroller() {
       scrollToStart,
     }),
     [scrollToEnd, scrollToMessage, scrollToStart],
-  )
+  );
 }
 
 function useMessageScrollerScrollable() {
-  const { stateStore } = useMessageScrollerContext()
+  const { stateStore } = useMessageScrollerContext();
 
   return React.useSyncExternalStore(
     stateStore.subscribe,
     stateStore.getSnapshot,
     stateStore.getSnapshot,
-  )
+  );
 }
 
 function useMessageScrollerVisibility() {
-  const { observeVisibility, unobserveVisibility, visibilityStore } =
-    useMessageScrollerContext()
+  const { observeVisibility, unobserveVisibility, visibilityStore } = useMessageScrollerContext();
   const subscribe = React.useCallback(
     (listener: () => void) =>
-      visibilityStore.subscribe(
-        listener,
-        observeVisibility,
-        unobserveVisibility,
-      ),
+      visibilityStore.subscribe(listener, observeVisibility, unobserveVisibility),
     [observeVisibility, unobserveVisibility, visibilityStore],
-  )
+  );
 
   return React.useSyncExternalStore(
     subscribe,
     visibilityStore.getSnapshot,
     visibilityStore.getSnapshot,
-  )
+  );
 }
 
 function MessageScrollerProvider({
@@ -100,7 +90,7 @@ function MessageScrollerProvider({
     scrollEdgeThreshold,
     scrollPreviousItemPeek,
     scrollMargin,
-  })
+  });
 
   return (
     <MessageScrollerContext.Provider value={context}>
@@ -108,22 +98,22 @@ function MessageScrollerProvider({
         {children}
       </MessageScrollerItemContext.Provider>
     </MessageScrollerContext.Provider>
-  )
+  );
 }
 
 function usePendingDefaultScroll() {
-  const { pendingDefaultScrollStore } = useMessageScrollerContext()
+  const { pendingDefaultScrollStore } = useMessageScrollerContext();
 
   return React.useSyncExternalStore(
     pendingDefaultScrollStore.subscribe,
     pendingDefaultScrollStore.getSnapshot,
     pendingDefaultScrollStore.getSnapshot,
-  )
+  );
 }
 
 function MessageScroller({ children, ...props }: MessageScrollerProps) {
-  const { setRootElement } = useMessageScrollerContext()
-  const pendingDefaultScroll = usePendingDefaultScroll()
+  const { setRootElement } = useMessageScrollerContext();
+  const pendingDefaultScroll = usePendingDefaultScroll();
 
   return (
     <div
@@ -133,7 +123,7 @@ function MessageScroller({ children, ...props }: MessageScrollerProps) {
     >
       {children}
     </div>
-  )
+  );
 }
 
 function MessageScrollerViewport({
@@ -156,66 +146,66 @@ function MessageScrollerViewport({
     syncAfterScroll,
     userScrollIntent,
     viewportRef,
-  } = useMessageScrollerContext()
-  const pendingDefaultScroll = usePendingDefaultScroll()
+  } = useMessageScrollerContext();
+  const pendingDefaultScroll = usePendingDefaultScroll();
 
-  preserveScrollOnPrependRef.current = preserveScrollOnPrepend
+  preserveScrollOnPrependRef.current = preserveScrollOnPrepend;
 
   const setViewportRef = React.useCallback(
     (element: HTMLDivElement | null) => {
-      setViewportElement(element)
-      composeRefs(ref)?.(element)
+      setViewportElement(element);
+      composeRefs(ref)?.(element);
     },
     [ref, setViewportElement],
-  )
+  );
 
   function handleScroll(event: React.UIEvent<HTMLDivElement>) {
-    syncAfterScroll()
-    onScroll?.(event)
+    syncAfterScroll();
+    onScroll?.(event);
   }
 
   function handleWheel(event: React.WheelEvent<HTMLDivElement>) {
-    userScrollIntent()
-    onWheel?.(event)
+    userScrollIntent();
+    onWheel?.(event);
   }
 
   function handleTouchMove(event: React.TouchEvent<HTMLDivElement>) {
-    userScrollIntent()
-    onTouchMove?.(event)
+    userScrollIntent();
+    onTouchMove?.(event);
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (USER_SCROLL_KEYS.has(event.key)) {
-      userScrollIntent()
+      userScrollIntent();
     }
 
-    onKeyDown?.(event)
+    onKeyDown?.(event);
   }
 
   React.useEffect(() => {
-    const viewport = viewportRef.current
+    const viewport = viewportRef.current;
 
     if (!viewport || typeof ResizeObserver === "undefined") {
-      return
+      return;
     }
 
     // Coalesce into rAF: handleResize mutates the spacer inside the observed
     // content, and resizing an observed element during delivery fires
     // "ResizeObserver loop completed with undelivered notifications".
-    let frame = 0
+    let frame = 0;
 
     const observer = new ResizeObserver(() => {
-      window.cancelAnimationFrame(frame)
-      frame = window.requestAnimationFrame(handleResize)
-    })
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(handleResize);
+    });
 
-    observer.observe(viewport)
+    observer.observe(viewport);
 
     return () => {
-      window.cancelAnimationFrame(frame)
-      observer.disconnect()
-    }
-  }, [handleResize, viewportRef])
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [handleResize, viewportRef]);
 
   return (
     <div
@@ -232,7 +222,7 @@ function MessageScrollerViewport({
     >
       {children}
     </div>
-  )
+  );
 }
 
 function MessageScrollerContent({
@@ -243,69 +233,65 @@ function MessageScrollerContent({
   spacerClassName,
   ...props
 }: MessageScrollerContentProps) {
-  const {
-    handleContentChange,
-    handleResize,
-    setContentElement,
-    setSpacerElement,
-  } = useMessageScrollerContext()
-  const contentRef = React.useRef<HTMLDivElement | null>(null)
+  const { handleContentChange, handleResize, setContentElement, setSpacerElement } =
+    useMessageScrollerContext();
+  const contentRef = React.useRef<HTMLDivElement | null>(null);
 
   const setContentRef = React.useCallback(
     (element: HTMLDivElement | null) => {
-      contentRef.current = element
-      setContentElement(element)
-      composeRefs(ref)?.(element)
+      contentRef.current = element;
+      setContentElement(element);
+      composeRefs(ref)?.(element);
     },
     [ref, setContentElement],
-  )
+  );
 
   React.useLayoutEffect(() => {
-    const content = contentRef.current
+    const content = contentRef.current;
 
     if (!content) {
-      return
+      return;
     }
 
-    handleContentChange()
+    handleContentChange();
 
     if (typeof MutationObserver === "undefined") {
-      return
+      return;
     }
 
     const observer = new MutationObserver(() => {
-      handleContentChange()
-    })
+      handleContentChange();
+    });
 
-    observer.observe(content, { childList: true })
+    observer.observe(content, { childList: true });
 
-    return () => observer.disconnect()
-  }, [handleContentChange])
+    return () => observer.disconnect();
+  }, [handleContentChange]);
 
   React.useEffect(() => {
-    const content = contentRef.current
+    const content = contentRef.current;
 
     if (!content || typeof ResizeObserver === "undefined") {
-      return
+      return;
     }
 
     // Coalesce into rAF: handleResize mutates the spacer inside this observed
     // element, and resizing an observed element during delivery fires
     // "ResizeObserver loop completed with undelivered notifications".
-    let frame = 0
+    let frame = 0;
 
     const observer = new ResizeObserver(() => {
-      window.cancelAnimationFrame(frame)
-      frame = window.requestAnimationFrame(handleResize)
-    })
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(handleResize);
+    });
 
-    observer.observe(content)
+    observer.observe(content);
 
     return () => {
-      window.cancelAnimationFrame(frame)
-      observer.disconnect()
-    }
-  }, [handleResize])
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [handleResize]);
 
   return (
     <div
@@ -323,7 +309,7 @@ function MessageScrollerContent({
         className={spacerClassName}
       />
     </div>
-  )
+  );
 }
 
 function MessageScrollerItem({
@@ -332,23 +318,23 @@ function MessageScrollerItem({
   scrollAnchor = false,
   ...props
 }: MessageScrollerItemProps) {
-  const registerMessage = useMessageScrollerItemContext()
-  const elementRef = React.useRef<HTMLDivElement | null>(null)
+  const registerMessage = useMessageScrollerItemContext();
+  const elementRef = React.useRef<HTMLDivElement | null>(null);
 
   const setItemRef = React.useCallback(
     (element: HTMLDivElement | null) => {
-      const previousElement = elementRef.current
+      const previousElement = elementRef.current;
 
-      elementRef.current = element
+      elementRef.current = element;
 
       if (messageId) {
-        registerMessage(messageId, element, previousElement)
+        registerMessage(messageId, element, previousElement);
       }
 
-      composeRefs(ref)?.(element)
+      composeRefs(ref)?.(element);
     },
     [messageId, ref, registerMessage],
-  )
+  );
 
   return (
     <div
@@ -357,7 +343,7 @@ function MessageScrollerItem({
       data-scroll-anchor={scrollAnchor ? "true" : "false"}
       {...props}
     />
-  )
+  );
 }
 
 function MessageScrollerButton({
@@ -370,43 +356,39 @@ function MessageScrollerButton({
   type = "button",
   ...props
 }: MessageScrollerButtonProps) {
-  const { scrollToEnd, scrollToStart, stateStore } = useMessageScrollerContext()
-  const onClickRef = useLatest(onClick)
+  const { scrollToEnd, scrollToStart, stateStore } = useMessageScrollerContext();
+  const onClickRef = useLatest(onClick);
   const subscribe = React.useCallback(
     (listener: () => void) => stateStore.subscribe(listener),
     [stateStore],
-  )
+  );
   const getSnapshot = React.useCallback(() => {
-    const state = stateStore.getSnapshot()
+    const state = stateStore.getSnapshot();
 
-    return direction === "start" ? state.start : state.end
-  }, [direction, stateStore])
-  const isActive = React.useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getSnapshot,
-  )
+    return direction === "start" ? state.start : state.end;
+  }, [direction, stateStore]);
+  const isActive = React.useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       if (!isActive) {
-        return
+        return;
       }
 
-      onClickRef.current?.(event)
+      onClickRef.current?.(event);
 
       if (!event.defaultPrevented) {
-        event.currentTarget.blur()
+        event.currentTarget.blur();
 
         if (direction === "start") {
-          scrollToStart({ behavior })
+          scrollToStart({ behavior });
         } else {
-          scrollToEnd({ behavior })
+          scrollToEnd({ behavior });
         }
       }
     },
     [behavior, direction, isActive, onClickRef, scrollToEnd, scrollToStart],
-  )
+  );
 
   return useRender({
     defaultTagName: "button",
@@ -430,7 +412,7 @@ function MessageScrollerButton({
         "data-active": value ? "true" : "false",
       }),
     },
-  })
+  });
 }
 
 export {
@@ -443,4 +425,4 @@ export {
   useMessageScroller,
   useMessageScrollerScrollable,
   useMessageScrollerVisibility,
-}
+};

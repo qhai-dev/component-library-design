@@ -8,13 +8,13 @@ import {
   AlertDialogDescription,
   AlertDialogAction,
   AlertDialogCancel,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/AlertDialog",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -23,9 +23,7 @@ export const Default = {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This cannot be undone.
-          </AlertDialogDescription>
+          <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -34,4 +32,4 @@ export const Default = {
       </AlertDialogContent>
     </AlertDialog>
   ),
-}
+};

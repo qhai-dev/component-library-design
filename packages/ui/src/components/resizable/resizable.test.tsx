@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./index";
 
 describe("Resizable", () => {
   it("renders", () => {
@@ -10,6 +10,6 @@ describe("Resizable", () => {
         <ResizableHandle />
         <ResizablePanel>Two</ResizablePanel>
       </ResizablePanelGroup>,
-    )
-  })
-})
+    );
+  });
+});

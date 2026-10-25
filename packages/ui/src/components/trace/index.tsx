@@ -1,24 +1,20 @@
-import * as React from "react"
-import { cn } from "cn"
+import * as React from "react";
+import { cn } from "cn";
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "../collapsible"
-import { IconPlaceholder } from "../../internal/icon-placeholder"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../collapsible";
+import { IconPlaceholder } from "../../internal/icon-placeholder";
 
 function Trace({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="trace"
       className={cn(
-        "cn-trace flex w-full min-w-0 flex-col *:has-[>[data-slot=trace-line]]:flex *:has-[>[data-slot=trace-line]]:w-fit *:has-[>[data-slot=trace-line]]:max-w-full *:has-[>[data-slot=trace-line]]:min-w-0 *:has-[>[data-slot=trace-line]]:text-left *:has-[>[data-slot=trace-line]]:outline-none",
+        "gap-2 *:has-[>[data-slot=trace-line]]:rounded-md *:has-[>[data-slot=trace-line]]:focus-visible:outline-2 *:has-[>[data-slot=trace-line]]:focus-visible:outline-ring flex w-full min-w-0 flex-col *:has-[>[data-slot=trace-line]]:flex *:has-[>[data-slot=trace-line]]:w-fit *:has-[>[data-slot=trace-line]]:max-w-full *:has-[>[data-slot=trace-line]]:min-w-0 *:has-[>[data-slot=trace-line]]:text-left *:has-[>[data-slot=trace-line]]:outline-none",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function TraceLine({
@@ -26,19 +22,19 @@ function TraceLine({
   status,
   ...props
 }: React.ComponentProps<"span"> & {
-  status?: "running" | "error" | "pending"
+  status?: "running" | "error" | "pending";
 }) {
   return (
     <span
       data-slot="trace-line"
       data-status={status}
       className={cn(
-        "cn-trace-line flex w-fit max-w-full min-w-0 items-center text-muted-foreground in-[a,button]:cursor-pointer in-[a:hover,button:hover]:text-foreground data-[status=error]:text-destructive data-[status=error]:in-[a:hover,button:hover]:text-destructive data-[status=pending]:opacity-60 data-[status=running]:*:data-[slot=trace-title]:shimmer",
+        "gap-2 text-sm flex w-fit max-w-full min-w-0 items-center text-muted-foreground in-[a,button]:cursor-pointer in-[a:hover,button:hover]:text-foreground data-[status=error]:text-destructive data-[status=error]:in-[a:hover,button:hover]:text-destructive data-[status=pending]:opacity-60 data-[status=running]:*:data-[slot=trace-title]:shimmer",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function TraceIcon({ className, ...props }: React.ComponentProps<"span">) {
@@ -47,41 +43,32 @@ function TraceIcon({ className, ...props }: React.ComponentProps<"span">) {
       data-slot="trace-icon"
       aria-hidden="true"
       className={cn(
-        "cn-trace-icon flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
+        "size-4 [&_svg:not([class*='size-'])]:size-4 [[data-slot=trace-title]~&]:-ml-1 flex shrink-0 items-center justify-center [&_svg]:pointer-events-none",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function TraceTitle({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="trace-title"
-      className={cn(
-        "cn-trace-title min-w-0 truncate motion-reduce:shimmer-none",
-        className,
-      )}
+      className={cn("min-w-0 truncate motion-reduce:shimmer-none", className)}
       {...props}
     />
-  )
+  );
 }
 
-function TraceDescription({
-  className,
-  ...props
-}: React.ComponentProps<"span">) {
+function TraceDescription({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="trace-description"
-      className={cn(
-        "cn-trace-description shrink-0 text-muted-foreground/70 tabular-nums",
-        className,
-      )}
+      className={cn("shrink-0 text-muted-foreground/70 tabular-nums", className)}
       {...props}
     />
-  )
+  );
 }
 
 function TraceCollapsible({
@@ -91,22 +78,17 @@ function TraceCollapsible({
   (
     | { open?: undefined }
     | {
-        open: boolean
-        onOpenChange: NonNullable<
-          React.ComponentProps<typeof Collapsible>["onOpenChange"]
-        >
+        open: boolean;
+        onOpenChange: NonNullable<React.ComponentProps<typeof Collapsible>["onOpenChange"]>;
       }
   )) {
   return (
     <Collapsible
       data-slot="trace-collapsible"
-      className={cn(
-        "cn-trace-collapsible flex w-full min-w-0 flex-col",
-        className,
-      )}
+      className={cn("flex w-full min-w-0 flex-col", className)}
       {...props}
     />
-  )
+  );
 }
 
 function TraceCollapsibleTrigger({
@@ -118,7 +100,7 @@ function TraceCollapsibleTrigger({
     <CollapsibleTrigger
       data-slot="trace-collapsible-trigger"
       className={cn(
-        "cn-trace-collapsible-trigger group/trace-collapsible-trigger flex w-fit max-w-full min-w-0 cursor-pointer items-center text-left text-muted-foreground outline-none hover:text-foreground has-[[data-status=error]]:text-destructive",
+        "gap-1 rounded-md focus-visible:outline-2 focus-visible:outline-ring group/trace-collapsible-trigger flex w-fit max-w-full min-w-0 cursor-pointer items-center text-left text-muted-foreground outline-none hover:text-foreground has-[[data-status=error]]:text-destructive",
         className,
       )}
       {...props}
@@ -134,7 +116,7 @@ function TraceCollapsibleTrigger({
         />
       </TraceIcon>
     </CollapsibleTrigger>
-  )
+  );
 }
 
 function TraceCollapsibleContent({
@@ -145,20 +127,20 @@ function TraceCollapsibleContent({
   return (
     <CollapsibleContent
       data-slot="trace-collapsible-content"
-      className="cn-trace-collapsible-content h-(--collapsible-panel-height) min-w-0 overflow-hidden transition-[height] data-ending-style:h-0 data-starting-style:h-0"
+      className="duration-200 h-(--collapsible-panel-height) min-w-0 overflow-hidden transition-[height] data-ending-style:h-0 data-starting-style:h-0"
       {...props}
     >
       <div
         data-slot="trace-collapsible-content-inner"
         className={cn(
-          "cn-trace-collapsible-content-inner min-w-0 wrap-break-word text-muted-foreground",
+          "mt-2 mb-1 ml-[calc(--spacing(2)-1px)] border-l pr-1 pl-4 leading-relaxed min-w-0 wrap-break-word text-muted-foreground",
           className,
         )}
       >
         {children}
       </div>
     </CollapsibleContent>
-  )
+  );
 }
 
 export {
@@ -170,4 +152,4 @@ export {
   TraceCollapsible,
   TraceCollapsibleTrigger,
   TraceCollapsibleContent,
-}
+};

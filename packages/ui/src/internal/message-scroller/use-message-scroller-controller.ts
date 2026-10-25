@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 import {
   getContentBottom,
@@ -13,42 +13,39 @@ import {
   getNewScrollAnchor,
   getUnanchoredScrollAnchor,
   hasMultipleNewScrollAnchors,
-} from "./geometry"
+} from "./geometry";
 import {
   DEFAULT_SCROLL_EDGE_THRESHOLD,
   DEFAULT_SCROLL_MARGIN,
   DEFAULT_SCROLL_PREVIOUS_ITEM_PEEK,
   EMPTY_MESSAGE_SCROLLER_VISIBILITY_STATE,
   SCROLL_POSITION_EPSILON,
-} from "./types"
+} from "./types";
 import type {
   MessageScrollerContextValue,
   MessageScrollerProviderProps,
   MessageScrollerRegisterMessage,
   MessageScrollerScrollable,
-} from "./types"
-import { useMessageScrollerCommands } from "./use-message-scroller-commands"
+} from "./types";
+import { useMessageScrollerCommands } from "./use-message-scroller-commands";
 import {
   clearPendingDefaultScroll,
   markDefaultScrollPositionApplied,
   useMessageScrollerRefs,
-} from "./use-message-scroller-refs"
+} from "./use-message-scroller-refs";
 
 // Builds a ref callback that stores the node and runs onMount once it attaches.
-function useElementRef(
-  elementRef: React.RefObject<HTMLDivElement | null>,
-  onMount: () => void,
-) {
+function useElementRef(elementRef: React.RefObject<HTMLDivElement | null>, onMount: () => void) {
   return React.useCallback(
     (element: HTMLDivElement | null) => {
-      elementRef.current = element
+      elementRef.current = element;
 
       if (element) {
-        onMount()
+        onMount();
       }
     },
     [elementRef, onMount],
-  )
+  );
 }
 
 // Orchestrator hook. Decides when to scroll and delegates the moves to
@@ -67,7 +64,7 @@ function useMessageScrollerController({
     scrollEdgeThreshold,
     scrollMargin,
     scrollPreviousItemPeek,
-  })
+  });
 
   const {
     streamingTurnRef,
@@ -101,42 +98,37 @@ function useMessageScrollerController({
     visibilityStore,
     visibleMessageIdsRef,
     handledScrollAnchorsRef,
-  } = refs
+  } = refs;
 
-  const previousDefaultScrollPositionRef = React.useRef(defaultScrollPosition)
+  const previousDefaultScrollPositionRef = React.useRef(defaultScrollPosition);
 
   if (previousDefaultScrollPositionRef.current !== defaultScrollPosition) {
-    previousDefaultScrollPositionRef.current = defaultScrollPosition
-    defaultScrollPositionAppliedRef.current = false
+    previousDefaultScrollPositionRef.current = defaultScrollPosition;
+    defaultScrollPositionAppliedRef.current = false;
     // The pending-scroll hold is mount-only. A live prop change re-applies the
     // opening position in layout; it does not hide the viewport again.
   }
 
-  const writeStateAttributes = React.useCallback(
-    (state: MessageScrollerScrollable) => {
-      const root = rootRef.current
-      const viewport = viewportRef.current
-      const scrollable = [state.start && "start", state.end && "end"]
-        .filter(Boolean)
-        .join(" ")
-      const autoScrolling = autoscrollingRef.current
+  const writeStateAttributes = React.useCallback((state: MessageScrollerScrollable) => {
+    const root = rootRef.current;
+    const viewport = viewportRef.current;
+    const scrollable = [state.start && "start", state.end && "end"].filter(Boolean).join(" ");
+    const autoScrolling = autoscrollingRef.current;
 
-      for (const element of [root, viewport]) {
-        if (!element) {
-          continue
-        }
-
-        if (scrollable) {
-          element.setAttribute("data-scrollable", scrollable)
-        } else {
-          element.removeAttribute("data-scrollable")
-        }
-
-        element.toggleAttribute("data-autoscrolling", autoScrolling)
+    for (const element of [root, viewport]) {
+      if (!element) {
+        continue;
       }
-    },
-    [],
-  )
+
+      if (scrollable) {
+        element.setAttribute("data-scrollable", scrollable);
+      } else {
+        element.removeAttribute("data-scrollable");
+      }
+
+      element.toggleAttribute("data-autoscrolling", autoScrolling);
+    }
+  }, []);
 
   // Owns the one follow-bottom transition: arm at the bottom, release on any
   // scroll away (including a scrollbar drag), suppressed during a programmatic
@@ -145,36 +137,32 @@ function useMessageScrollerController({
   // anchored turn read as "at the end", and re-arming there would let the
   // first streamed chunk yank the reader off the anchor. The hold hands back
   // to following in handleResize, once the reply consumes the tail spacer.
-  const reconcileFollowMode = React.useCallback(
-    (scrollable: MessageScrollerScrollable) => {
-      const scrollTop = viewportRef.current?.scrollTop ?? 0
-      // Content growing past the live edge also reads as "not at the end", but
-      // only a scrollbar drag moves scrollTop up. Growth must not release
-      // follow-output: the resize handler is coalesced onto a frame, so a state
-      // commit can observe the grown content before follow catches up.
-      const scrolledUp =
-        scrollTop < lastScrollTopRef.current - SCROLL_POSITION_EPSILON
+  const reconcileFollowMode = React.useCallback((scrollable: MessageScrollerScrollable) => {
+    const scrollTop = viewportRef.current?.scrollTop ?? 0;
+    // Content growing past the live edge also reads as "not at the end", but
+    // only a scrollbar drag moves scrollTop up. Growth must not release
+    // follow-output: the resize handler is coalesced onto a frame, so a state
+    // commit can observe the grown content before follow catches up.
+    const scrolledUp = scrollTop < lastScrollTopRef.current - SCROLL_POSITION_EPSILON;
 
-      lastScrollTopRef.current = scrollTop
+    lastScrollTopRef.current = scrollTop;
 
-      if (
-        autoScrollRef.current &&
-        !scrollable.end &&
-        modeRef.current !== "settling-jump" &&
-        modeRef.current !== "anchored-to-message"
-      ) {
-        modeRef.current = "following-bottom"
-      } else if (
-        modeRef.current === "following-bottom" &&
-        scrollable.end &&
-        scrolledUp &&
-        !autoscrollingRef.current
-      ) {
-        modeRef.current = "free-scrolling"
-      }
-    },
-    [],
-  )
+    if (
+      autoScrollRef.current &&
+      !scrollable.end &&
+      modeRef.current !== "settling-jump" &&
+      modeRef.current !== "anchored-to-message"
+    ) {
+      modeRef.current = "following-bottom";
+    } else if (
+      modeRef.current === "following-bottom" &&
+      scrollable.end &&
+      scrolledUp &&
+      !autoscrollingRef.current
+    ) {
+      modeRef.current = "free-scrolling";
+    }
+  }, []);
 
   const commitScrollState = React.useCallback(() => {
     const nextState = getMessageScrollerScrollable({
@@ -182,9 +170,9 @@ function useMessageScrollerController({
       scrollEdgeThreshold: scrollEdgeThresholdRef.current,
       spacer: spacerRef.current,
       viewport: viewportRef.current,
-    })
+    });
 
-    reconcileFollowMode(nextState)
+    reconcileFollowMode(nextState);
 
     // While follow-output is engaged the scroller is already closing any gap a
     // streamed chunk just opened, so publishing it as scrollable toward the
@@ -192,42 +180,40 @@ function useMessageScrollerController({
     // raw geometry first, so a commit that releases follow still publishes the
     // gap it released over.
     const publishedState =
-      modeRef.current === "following-bottom"
-        ? { ...nextState, end: false }
-        : nextState
+      modeRef.current === "following-bottom" ? { ...nextState, end: false } : nextState;
 
-    writeStateAttributes(publishedState)
-    stateStore.setSnapshot(publishedState)
-  }, [reconcileFollowMode, stateStore, writeStateAttributes])
+    writeStateAttributes(publishedState);
+    stateStore.setSnapshot(publishedState);
+  }, [reconcileFollowMode, stateStore, writeStateAttributes]);
 
   const scheduleStateCommit = React.useCallback(() => {
     if (stateFrameRef.current !== null) {
-      return
+      return;
     }
 
     stateFrameRef.current = window.requestAnimationFrame(() => {
-      stateFrameRef.current = null
-      commitScrollState()
-    })
-  }, [commitScrollState])
+      stateFrameRef.current = null;
+      commitScrollState();
+    });
+  }, [commitScrollState]);
 
   const scheduleVisibilitySync = React.useCallback(() => {
     if (!visibilityStore.hasListeners()) {
-      return
+      return;
     }
 
     if (visibilityFrameRef.current !== null) {
-      return
+      return;
     }
 
     visibilityFrameRef.current = window.requestAnimationFrame(() => {
-      visibilityFrameRef.current = null
+      visibilityFrameRef.current = null;
 
       // A frame can outlive the last unsubscribe. Recomputing here would
       // overwrite the EMPTY snapshot that teardown just wrote, leaving a stale
       // value for the next subscriber to read.
       if (!visibilityStore.hasListeners()) {
-        return
+        return;
       }
 
       visibilityStore.setSnapshot(
@@ -239,9 +225,9 @@ function useMessageScrollerController({
           viewport: viewportRef.current,
           visibleMessageIds: visibleMessageIdsRef.current,
         }),
-      )
-    })
-  }, [visibilityStore])
+      );
+    });
+  }, [visibilityStore]);
 
   const {
     flushPendingScrollToMessage,
@@ -255,14 +241,14 @@ function useMessageScrollerController({
     commitScrollState,
     scheduleStateCommit,
     scheduleVisibilitySync,
-  })
+  });
 
   const restorePrependedAnchor = React.useCallback(() => {
-    const anchor = prependRestoreRef.current
-    const viewport = viewportRef.current
+    const anchor = prependRestoreRef.current;
+    const viewport = viewportRef.current;
 
     if (!anchor || !viewport || !anchor.element.isConnected) {
-      return false
+      return false;
     }
 
     // Compare the anchor relative to the viewport, not to the content. Native
@@ -270,57 +256,57 @@ function useMessageScrollerController({
     // is a no-op where the browser already handled the prepend and only corrects
     // the scroll where it did not (e.g. Safari) — without trusting a capability
     // flag, which some engines report incorrectly.
-    const nextViewportTop = getElementViewportTop(anchor.element, viewport)
-    const delta = nextViewportTop - anchor.viewportTop
+    const nextViewportTop = getElementViewportTop(anchor.element, viewport);
+    const delta = nextViewportTop - anchor.viewportTop;
 
     if (Math.abs(delta) <= SCROLL_POSITION_EPSILON) {
-      return false
+      return false;
     }
 
-    viewport.scrollTop += delta
-    anchor.viewportTop = getElementViewportTop(anchor.element, viewport)
-    scheduleStateCommit()
-    scheduleVisibilitySync()
+    viewport.scrollTop += delta;
+    anchor.viewportTop = getElementViewportTop(anchor.element, viewport);
+    scheduleStateCommit();
+    scheduleVisibilitySync();
 
-    return true
-  }, [scheduleStateCommit, scheduleVisibilitySync])
+    return true;
+  }, [scheduleStateCommit, scheduleVisibilitySync]);
 
   const capturePrependAnchor = React.useCallback(() => {
-    const content = contentRef.current
-    const viewport = viewportRef.current
+    const content = contentRef.current;
+    const viewport = viewportRef.current;
 
     if (!content || !viewport) {
-      prependRestoreRef.current = null
-      return
+      prependRestoreRef.current = null;
+      return;
     }
 
     const anchor = getFirstVisibleMessageItem({
       content,
       spacer: spacerRef.current,
       viewport,
-    })
+    });
 
     prependRestoreRef.current = anchor
       ? {
           element: anchor,
           viewportTop: getElementViewportTop(anchor, viewport),
         }
-      : null
-  }, [])
+      : null;
+  }, []);
 
   const schedulePendingScrollToMessageFlush = React.useCallback(() => {
     if (pendingScrollFrameRef.current !== null) {
-      return
+      return;
     }
 
     pendingScrollFrameRef.current = window.requestAnimationFrame(() => {
-      pendingScrollFrameRef.current = null
+      pendingScrollFrameRef.current = null;
 
       if (flushPendingScrollToMessage()) {
-        capturePrependAnchor()
+        capturePrependAnchor();
       }
-    })
-  }, [capturePrependAnchor, flushPendingScrollToMessage])
+    });
+  }, [capturePrependAnchor, flushPendingScrollToMessage]);
 
   const applyDefaultScrollPosition = React.useCallback(() => {
     if (
@@ -328,71 +314,65 @@ function useMessageScrollerController({
       defaultScrollPositionAppliedRef.current ||
       itemCountRef.current === 0
     ) {
-      return false
+      return false;
     }
 
-    let handled = false
+    let handled = false;
 
     if (defaultScrollPosition === "last-anchor") {
-      const content = contentRef.current
-      const viewport = viewportRef.current
+      const content = contentRef.current;
+      const viewport = viewportRef.current;
       const anchor =
         content && viewport
-          ? getLastScrollAnchor(
-              getMessageScrollerItems(content, spacerRef.current),
-            )
-          : null
+          ? getLastScrollAnchor(getMessageScrollerItems(content, spacerRef.current))
+          : null;
 
       if (!content || !viewport || !anchor) {
-        handled = scrollToEnd({ behavior: "auto" })
+        handled = scrollToEnd({ behavior: "auto" });
       } else {
-        const anchorTop = getElementTop(anchor, viewport)
+        const anchorTop = getElementTop(anchor, viewport);
         const contentBottom = getContentBottom({
           content,
           spacer: spacerRef.current,
           viewport,
-        })
+        });
         // A short last turn already fits below the anchor, so opening at the end
         // shows the whole turn without leaving a blank gap beneath it.
-        const lastTurnFits = contentBottom - anchorTop <= viewport.clientHeight
+        const lastTurnFits = contentBottom - anchorTop <= viewport.clientHeight;
 
         handled = lastTurnFits
           ? scrollToEnd({ behavior: "auto" })
-          : scrollToElement(
-              anchor,
-              { align: "start" },
-              { keepPreviousPeek: true },
-            )
+          : scrollToElement(anchor, { align: "start" }, { keepPreviousPeek: true });
       }
     } else {
       handled =
         defaultScrollPosition === "end"
           ? scrollToEnd({ behavior: "auto" })
-          : scrollToStart({ behavior: "auto" })
+          : scrollToStart({ behavior: "auto" });
     }
 
     if (!handled) {
-      return false
+      return false;
     }
 
-    markDefaultScrollPositionApplied(refs)
+    markDefaultScrollPositionApplied(refs);
 
-    return true
-  }, [defaultScrollPosition, scrollToElement, scrollToEnd, scrollToStart])
+    return true;
+  }, [defaultScrollPosition, scrollToElement, scrollToEnd, scrollToStart]);
 
   const handleContentChange = React.useCallback(() => {
-    const content = contentRef.current
+    const content = contentRef.current;
 
     if (!content) {
-      return
+      return;
     }
 
-    const items = getMessageScrollerItems(content, spacerRef.current)
-    const previousItemCount = itemCountRef.current
-    const previousFirstItem = firstItemRef.current
+    const items = getMessageScrollerItems(content, spacerRef.current);
+    const previousItemCount = itemCountRef.current;
+    const previousFirstItem = firstItemRef.current;
 
-    itemCountRef.current = items.length
-    firstItemRef.current = items[0] ?? null
+    itemCountRef.current = items.length;
+    firstItemRef.current = items[0] ?? null;
 
     // Reconcile the scroll position with the new content. Every path re-captures
     // the prepend anchor afterward, so each branch just returns.
@@ -400,42 +380,35 @@ function useMessageScrollerController({
     // Branch order is load-bearing: first-content, prepended, appended, updated.
     const reconcileScrollPosition = () => {
       if (flushPendingScrollToMessage()) {
-        return
+        return;
       }
 
       if (previousItemCount === 0) {
         if (applyDefaultScrollPosition()) {
-          return
+          return;
         }
 
-        if (
-          items.length > 0 &&
-          autoScrollRef.current &&
-          scrollToEnd({ behavior: "auto" })
-        ) {
-          return
+        if (items.length > 0 && autoScrollRef.current && scrollToEnd({ behavior: "auto" })) {
+          return;
         }
 
-        commitScrollState()
-        scheduleVisibilitySync()
-        return
+        commitScrollState();
+        scheduleVisibilitySync();
+        return;
       }
 
-      const previousFirstItemIndex = previousFirstItem
-        ? items.indexOf(previousFirstItem)
-        : -1
-      const didPrepend =
-        preserveScrollOnPrependRef.current && previousFirstItemIndex > 0
+      const previousFirstItemIndex = previousFirstItem ? items.indexOf(previousFirstItem) : -1;
+      const didPrepend = preserveScrollOnPrependRef.current && previousFirstItemIndex > 0;
 
       if (didPrepend) {
         // Prepended rows are not new appends. Restore the prior scroll position.
         // The restore is a no-op where native scroll anchoring already did it.
-        restorePrependedAnchor()
-        return
+        restorePrependedAnchor();
+        return;
       }
 
       if (items.length > previousItemCount) {
-        const anchor = getNewScrollAnchor(items, previousItemCount)
+        const anchor = getNewScrollAnchor(items, previousItemCount);
 
         if (anchor) {
           // While the reader is following the live end, a batch of several
@@ -447,49 +420,38 @@ function useMessageScrollerController({
             modeRef.current === "following-bottom" &&
             hasMultipleNewScrollAnchors(items, previousItemCount)
           ) {
-            scrollToEnd({ behavior: "auto" })
-            return
+            scrollToEnd({ behavior: "auto" });
+            return;
           }
 
-          scrollToElement(
-            anchor,
-            { align: "start" },
-            { keepPreviousPeek: true },
-          )
-          handledScrollAnchorsRef.current.add(anchor)
-          return
+          scrollToElement(anchor, { align: "start" }, { keepPreviousPeek: true });
+          handledScrollAnchorsRef.current.add(anchor);
+          return;
         }
       }
 
       if (items.length === previousItemCount) {
-        const anchor = getUnanchoredScrollAnchor(
-          items,
-          handledScrollAnchorsRef.current,
-        )
+        const anchor = getUnanchoredScrollAnchor(items, handledScrollAnchorsRef.current);
 
         if (anchor) {
-          scrollToElement(
-            anchor,
-            { align: "start" },
-            { keepPreviousPeek: true },
-          )
-          handledScrollAnchorsRef.current.add(anchor)
-          return
+          scrollToElement(anchor, { align: "start" }, { keepPreviousPeek: true });
+          handledScrollAnchorsRef.current.add(anchor);
+          return;
         }
       }
 
       // Appends with no new anchor (and content-only updates) fall through here:
       // keep following the end if we still are, otherwise just recommit state.
       if (modeRef.current === "following-bottom" && autoScrollRef.current) {
-        scrollToEnd({ behavior: "auto" })
+        scrollToEnd({ behavior: "auto" });
       } else {
-        commitScrollState()
-        scheduleVisibilitySync()
+        commitScrollState();
+        scheduleVisibilitySync();
       }
-    }
+    };
 
-    reconcileScrollPosition()
-    capturePrependAnchor()
+    reconcileScrollPosition();
+    capturePrependAnchor();
   }, [
     applyDefaultScrollPosition,
     capturePrependAnchor,
@@ -499,18 +461,18 @@ function useMessageScrollerController({
     scheduleVisibilitySync,
     scrollToElement,
     scrollToEnd,
-  ])
+  ]);
 
   const handleResize = React.useCallback(() => {
     if (modeRef.current === "following-bottom" && autoScrollRef.current) {
-      scrollToEnd({ behavior: "auto" })
-      return
+      scrollToEnd({ behavior: "auto" });
+      return;
     }
 
     // Hold the anchored turn in place as content below it resizes (a reply
     // streaming in, or a transient marker collapsing) — otherwise the shrinking
     // content lets the browser clamp scrollTop and the turn drops.
-    const previousSpacerHeight = spacerHeightRef.current
+    const previousSpacerHeight = spacerHeightRef.current;
 
     if (reanchorToAnchoredMessage()) {
       // The reply streaming below the anchor consumes the tail spacer as it
@@ -519,56 +481,47 @@ function useMessageScrollerController({
       // from the anchor hold to following the bottom. Requiring the >0 → 0
       // transition keeps a turn taller than the viewport (placed with no
       // spacer) held instead of yanked to the end.
-      if (
-        autoScrollRef.current &&
-        previousSpacerHeight > 0 &&
-        spacerHeightRef.current === 0
-      ) {
-        scrollToEnd({ behavior: "auto" })
+      if (autoScrollRef.current && previousSpacerHeight > 0 && spacerHeightRef.current === 0) {
+        scrollToEnd({ behavior: "auto" });
       }
 
-      return
+      return;
     }
 
-    scheduleStateCommit()
-    scheduleVisibilitySync()
-  }, [
-    reanchorToAnchoredMessage,
-    scheduleStateCommit,
-    scheduleVisibilitySync,
-    scrollToEnd,
-  ])
+    scheduleStateCommit();
+    scheduleVisibilitySync();
+  }, [reanchorToAnchoredMessage, scheduleStateCommit, scheduleVisibilitySync, scrollToEnd]);
 
   const observeVisibility = React.useCallback(() => {
-    const viewport = viewportRef.current
+    const viewport = viewportRef.current;
 
     if (!viewport || !visibilityStore.hasListeners()) {
-      return
+      return;
     }
 
     if (typeof IntersectionObserver === "undefined") {
-      scheduleVisibilitySync()
-      return
+      scheduleVisibilitySync();
+      return;
     }
 
     if (!visibilityObserverRef.current) {
       visibilityObserverRef.current = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
-            const messageId = (entry.target as HTMLElement).dataset.messageId
+            const messageId = (entry.target as HTMLElement).dataset.messageId;
 
             if (!messageId) {
-              continue
+              continue;
             }
 
             if (entry.isIntersecting) {
-              visibleMessageIdsRef.current.add(messageId)
+              visibleMessageIdsRef.current.add(messageId);
             } else {
-              visibleMessageIdsRef.current.delete(messageId)
+              visibleMessageIdsRef.current.delete(messageId);
             }
           }
 
-          scheduleVisibilitySync()
+          scheduleVisibilitySync();
         },
         {
           root: viewport,
@@ -581,53 +534,50 @@ function useMessageScrollerController({
           )}px 0px 0px 0px`,
           threshold: [0, 0.01, 0.5, 1],
         },
-      )
+      );
     }
 
     messageElementsRef.current.forEach((element) => {
-      visibilityObserverRef.current?.observe(element)
-    })
-    scheduleVisibilitySync()
-  }, [scheduleVisibilitySync, visibilityStore])
+      visibilityObserverRef.current?.observe(element);
+    });
+    scheduleVisibilitySync();
+  }, [scheduleVisibilitySync, visibilityStore]);
 
   const unobserveVisibility = React.useCallback(() => {
     if (visibilityFrameRef.current !== null) {
-      window.cancelAnimationFrame(visibilityFrameRef.current)
-      visibilityFrameRef.current = null
+      window.cancelAnimationFrame(visibilityFrameRef.current);
+      visibilityFrameRef.current = null;
     }
 
-    visibilityObserverRef.current?.disconnect()
-    visibilityObserverRef.current = null
-    visibleMessageIdsRef.current.clear()
-    visibilityStore.setSnapshot(EMPTY_MESSAGE_SCROLLER_VISIBILITY_STATE)
-  }, [visibilityStore])
+    visibilityObserverRef.current?.disconnect();
+    visibilityObserverRef.current = null;
+    visibleMessageIdsRef.current.clear();
+    visibilityStore.setSnapshot(EMPTY_MESSAGE_SCROLLER_VISIBILITY_STATE);
+  }, [visibilityStore]);
 
   const registerMessage = React.useCallback<MessageScrollerRegisterMessage>(
     (messageId, element, removedElement) => {
       if (element) {
-        messageElementsRef.current.set(messageId, element)
-        visibilityObserverRef.current?.observe(element)
-        scheduleVisibilitySync()
+        messageElementsRef.current.set(messageId, element);
+        visibilityObserverRef.current?.observe(element);
+        scheduleVisibilitySync();
 
         if (pendingScrollToMessageRef.current?.messageId === messageId) {
-          schedulePendingScrollToMessageFlush()
+          schedulePendingScrollToMessageFlush();
         }
 
-        return
+        return;
       }
 
-      if (
-        removedElement &&
-        messageElementsRef.current.get(messageId) === removedElement
-      ) {
-        messageElementsRef.current.delete(messageId)
-        visibleMessageIdsRef.current.delete(messageId)
-        visibilityObserverRef.current?.unobserve(removedElement)
-        scheduleVisibilitySync()
+      if (removedElement && messageElementsRef.current.get(messageId) === removedElement) {
+        messageElementsRef.current.delete(messageId);
+        visibleMessageIdsRef.current.delete(messageId);
+        visibilityObserverRef.current?.unobserve(removedElement);
+        scheduleVisibilitySync();
       }
     },
     [schedulePendingScrollToMessageFlush, scheduleVisibilitySync],
-  )
+  );
 
   const userScrollIntent = React.useCallback(() => {
     if (
@@ -637,39 +587,33 @@ function useMessageScrollerController({
     ) {
       // A deliberate gesture releases auto-follow, turn-anchoring, and an in-flight
       // programmatic jump so re-pinning (and re-arming) never fights the reader.
-      streamingTurnRef.current = null
-      modeRef.current = "free-scrolling"
+      streamingTurnRef.current = null;
+      modeRef.current = "free-scrolling";
     }
-  }, [])
+  }, []);
 
   const mirrorStateAttributes = React.useCallback(
     () => writeStateAttributes(stateStore.getSnapshot()),
     [stateStore, writeStateAttributes],
-  )
+  );
 
-  const setRootElement = useElementRef(rootRef, mirrorStateAttributes)
-  const setViewportElement = useElementRef(viewportRef, mirrorStateAttributes)
+  const setRootElement = useElementRef(rootRef, mirrorStateAttributes);
+  const setViewportElement = useElementRef(viewportRef, mirrorStateAttributes);
 
-  const setContentElement = React.useCallback(
-    (element: HTMLDivElement | null) => {
-      contentRef.current = element
-    },
-    [],
-  )
+  const setContentElement = React.useCallback((element: HTMLDivElement | null) => {
+    contentRef.current = element;
+  }, []);
 
-  const setSpacerElement = React.useCallback(
-    (element: HTMLDivElement | null) => {
-      spacerRef.current = element
-      spacerGapRef.current = getFlexGap(element?.parentElement ?? null)
-    },
-    [],
-  )
+  const setSpacerElement = React.useCallback((element: HTMLDivElement | null) => {
+    spacerRef.current = element;
+    spacerGapRef.current = getFlexGap(element?.parentElement ?? null);
+  }, []);
 
   const syncAfterScroll = React.useCallback(() => {
-    commitScrollState()
-    scheduleVisibilitySync()
-    capturePrependAnchor()
-  }, [capturePrependAnchor, commitScrollState, scheduleVisibilitySync])
+    commitScrollState();
+    scheduleVisibilitySync();
+    capturePrependAnchor();
+  }, [capturePrependAnchor, commitScrollState, scheduleVisibilitySync]);
 
   const context = React.useMemo<MessageScrollerContextValue>(
     () => ({
@@ -710,17 +654,17 @@ function useMessageScrollerController({
       userScrollIntent,
       visibilityStore,
     ],
-  )
+  );
 
   React.useLayoutEffect(() => {
     if (applyDefaultScrollPosition()) {
-      return
+      return;
     }
 
     if (itemCountRef.current === 0) {
-      clearPendingDefaultScroll(refs)
+      clearPendingDefaultScroll(refs);
     }
-  }, [applyDefaultScrollPosition])
+  }, [applyDefaultScrollPosition]);
 
   React.useEffect(() => {
     return () => {
@@ -728,47 +672,43 @@ function useMessageScrollerController({
       // refs (unmount then remount), so a frame id left non-null here makes the
       // scheduler on remount think a frame is still pending and never reschedule.
       if (stateFrameRef.current !== null) {
-        window.cancelAnimationFrame(stateFrameRef.current)
-        stateFrameRef.current = null
+        window.cancelAnimationFrame(stateFrameRef.current);
+        stateFrameRef.current = null;
       }
 
       if (visibilityFrameRef.current !== null) {
-        window.cancelAnimationFrame(visibilityFrameRef.current)
-        visibilityFrameRef.current = null
+        window.cancelAnimationFrame(visibilityFrameRef.current);
+        visibilityFrameRef.current = null;
       }
 
       if (autoscrollingTimeoutRef.current !== null) {
-        window.clearTimeout(autoscrollingTimeoutRef.current)
-        autoscrollingTimeoutRef.current = null
+        window.clearTimeout(autoscrollingTimeoutRef.current);
+        autoscrollingTimeoutRef.current = null;
       }
 
       if (pendingScrollFrameRef.current !== null) {
-        window.cancelAnimationFrame(pendingScrollFrameRef.current)
-        pendingScrollFrameRef.current = null
+        window.cancelAnimationFrame(pendingScrollFrameRef.current);
+        pendingScrollFrameRef.current = null;
       }
 
-      visibilityObserverRef.current?.disconnect()
-      visibilityObserverRef.current = null
-    }
-  }, [])
+      visibilityObserverRef.current?.disconnect();
+      visibilityObserverRef.current = null;
+    };
+  }, []);
 
   React.useLayoutEffect(() => {
-    if (
-      autoScroll &&
-      modeRef.current === "following-bottom" &&
-      itemCountRef.current > 0
-    ) {
-      scrollToEnd({ behavior: "auto" })
-      return
+    if (autoScroll && modeRef.current === "following-bottom" && itemCountRef.current > 0) {
+      scrollToEnd({ behavior: "auto" });
+      return;
     }
 
-    commitScrollState()
-  }, [autoScroll, commitScrollState, scrollToEnd])
+    commitScrollState();
+  }, [autoScroll, commitScrollState, scrollToEnd]);
 
   return {
     context,
     registerMessage,
-  }
+  };
 }
 
-export { useMessageScrollerController }
+export { useMessageScrollerController };

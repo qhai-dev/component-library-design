@@ -1,15 +1,10 @@
-import {
-  ContextMenu,
-  ContextMenuTrigger,
-  ContextMenuContent,
-  ContextMenuItem,
-} from "./index"
+import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "./index";
 
 const meta = {
   title: "Components/ContextMenu",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -20,4 +15,4 @@ export const Default = {
       </ContextMenuContent>
     </ContextMenu>
   ),
-}
+};

@@ -5,13 +5,13 @@ import {
   CommandItem,
   CommandGroup,
   CommandSeparator,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Command",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -25,4 +25,4 @@ export const Default = {
       </CommandList>
     </Command>
   ),
-}
+};

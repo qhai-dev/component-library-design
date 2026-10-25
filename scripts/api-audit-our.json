@@ -1,0 +1,917 @@
+[
+  {
+    "component": "accordion",
+    "exports": ["Accordion", "AccordionItem", "AccordionTrigger", "AccordionContent"],
+    "variants": {},
+    "props": ["children"]
+  },
+  {
+    "component": "alert",
+    "exports": ["Alert", "AlertTitle", "AlertDescription", "AlertAction"],
+    "variants": {
+      "variant": ["default", "destructive"]
+    },
+    "props": ["variant"]
+  },
+  {
+    "component": "alert-dialog",
+    "exports": [
+      "AlertDialog",
+      "AlertDialogAction",
+      "AlertDialogCancel",
+      "AlertDialogContent",
+      "AlertDialogDescription",
+      "AlertDialogFooter",
+      "AlertDialogHeader",
+      "AlertDialogMedia",
+      "AlertDialogOverlay",
+      "AlertDialogPortal",
+      "AlertDialogTitle",
+      "AlertDialogTrigger"
+    ],
+    "variants": {},
+    "props": ["size = \"default\"", "variant = \"outline\""]
+  },
+  {
+    "component": "aspect-ratio",
+    "exports": ["AspectRatio"],
+    "variants": {},
+    "props": ["ratio"]
+  },
+  {
+    "component": "attachment",
+    "exports": [
+      "Attachment",
+      "AttachmentGroup",
+      "AttachmentMedia",
+      "AttachmentContent",
+      "AttachmentTitle",
+      "AttachmentDescription",
+      "AttachmentActions",
+      "AttachmentAction",
+      "AttachmentTrigger"
+    ],
+    "variants": {
+      "size": ["default", "sm", "xs"],
+      "orientation": ["horizontal", "vertical"]
+    },
+    "props": [
+      "state = \"done\"",
+      "size = \"default\"",
+      "orientation = \"horizontal\"",
+      "variant = \"icon\"",
+      "variant",
+      "size = \"icon-xs\"",
+      "render",
+      "type"
+    ]
+  },
+  {
+    "component": "avatar",
+    "exports": [
+      "Avatar",
+      "AvatarImage",
+      "AvatarFallback",
+      "AvatarGroup",
+      "AvatarGroupCount",
+      "AvatarBadge"
+    ],
+    "variants": {},
+    "props": ["size = \"default\""]
+  },
+  {
+    "component": "badge",
+    "exports": ["Badge", "badgeVariants"],
+    "variants": {
+      "variant": ["default", "secondary", "destructive", "outline", "ghost", "link"]
+    },
+    "props": ["variant = \"default\"", "render"]
+  },
+  {
+    "component": "breadcrumb",
+    "exports": [
+      "Breadcrumb",
+      "BreadcrumbList",
+      "BreadcrumbItem",
+      "BreadcrumbLink",
+      "BreadcrumbPage",
+      "BreadcrumbSeparator",
+      "BreadcrumbEllipsis"
+    ],
+    "variants": {},
+    "props": ["render", "children"]
+  },
+  {
+    "component": "bubble",
+    "exports": ["BubbleGroup", "Bubble", "BubbleContent", "BubbleReactions"],
+    "variants": {
+      "variant": ["default", "secondary", "muted", "tinted", "outline", "ghost", "destructive"]
+    },
+    "props": [
+      "variant = \"default\"",
+      "align = \"start\"",
+      "render",
+      "side = \"bottom\"",
+      "align = \"end\""
+    ]
+  },
+  {
+    "component": "button",
+    "exports": ["Button", "buttonVariants"],
+    "variants": {
+      "variant": ["default", "outline", "secondary", "ghost", "destructive", "link"],
+      "size": ["default", "xs", "sm", "lg", "icon", "icon-xs", "icon-sm", "icon-lg"]
+    },
+    "props": ["variant = \"default\"", "size = \"default\""]
+  },
+  {
+    "component": "button-group",
+    "exports": ["ButtonGroup", "ButtonGroupSeparator", "ButtonGroupText", "buttonGroupVariants"],
+    "variants": {
+      "orientation": ["horizontal", "vertical"]
+    },
+    "props": ["orientation", "render", "orientation = \"vertical\""]
+  },
+  {
+    "component": "calendar",
+    "exports": ["Calendar", "CalendarDayButton"],
+    "variants": {},
+    "props": [
+      "classNames",
+      "showOutsideDays = true",
+      "captionLayout = \"label\"",
+      "buttonVariant = \"ghost\"",
+      "locale",
+      "formatters",
+      "components",
+      "day",
+      "modifiers"
+    ]
+  },
+  {
+    "component": "card",
+    "exports": [
+      "Card",
+      "CardHeader",
+      "CardFooter",
+      "CardTitle",
+      "CardAction",
+      "CardDescription",
+      "CardContent"
+    ],
+    "variants": {},
+    "props": ["size = \"default\""]
+  },
+  {
+    "component": "carousel",
+    "exports": [
+      "Carousel",
+      "CarouselContent",
+      "CarouselItem",
+      "CarouselPrevious",
+      "CarouselNext",
+      "useCarousel"
+    ],
+    "variants": {},
+    "props": [
+      "orientation = \"horizontal\"",
+      "opts",
+      "setApi",
+      "plugins",
+      "children",
+      "variant = \"outline\"",
+      "size = \"icon-sm\""
+    ]
+  },
+  {
+    "component": "chart",
+    "exports": [
+      "ChartContainer",
+      "ChartTooltip",
+      "ChartTooltipContent",
+      "ChartLegend",
+      "ChartLegendContent",
+      "ChartStyle"
+    ],
+    "variants": {},
+    "props": ["id", "children", "config", "initialDimension = INITIAL_DIMENSION"]
+  },
+  {
+    "component": "checkbox",
+    "exports": ["Checkbox"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "code-block",
+    "exports": [
+      "CodeBlock",
+      "CodeBlockHeader",
+      "CodeBlockTitle",
+      "CodeBlockActions",
+      "CodeBlockCopyButton",
+      "CodeBlockContent",
+      "CodeBlockLine",
+      "CodeBlockFooter"
+    ],
+    "variants": {
+      "variant": ["default", "destructive"]
+    },
+    "props": [
+      "variant = \"default\"",
+      "size = \"default\"",
+      "value",
+      "variant = \"ghost\"",
+      "size = \"icon-xs\"",
+      "onClick",
+      "children",
+      "style",
+      "wrap = false",
+      "lineNumbers = false",
+      "startLine = 1"
+    ]
+  },
+  {
+    "component": "collapsible",
+    "exports": ["Collapsible", "CollapsibleTrigger", "CollapsibleContent"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "combobox",
+    "exports": [
+      "Combobox",
+      "ComboboxInput",
+      "ComboboxContent",
+      "ComboboxList",
+      "ComboboxItem",
+      "ComboboxGroup",
+      "ComboboxLabel",
+      "ComboboxCollection",
+      "ComboboxEmpty",
+      "ComboboxSeparator",
+      "ComboboxChips",
+      "ComboboxChip",
+      "ComboboxChipsInput",
+      "ComboboxTrigger",
+      "ComboboxValue",
+      "useComboboxAnchor"
+    ],
+    "variants": {},
+    "props": [
+      "children",
+      "disabled = false",
+      "showTrigger = true",
+      "showClear = false",
+      "side = \"bottom\"",
+      "sideOffset = 6",
+      "align = \"start\"",
+      "alignOffset = 0",
+      "anchor",
+      "showRemove = true"
+    ]
+  },
+  {
+    "component": "command",
+    "exports": [
+      "Command",
+      "CommandDialog",
+      "CommandInput",
+      "CommandList",
+      "CommandEmpty",
+      "CommandGroup",
+      "CommandItem",
+      "CommandShortcut",
+      "CommandSeparator"
+    ],
+    "variants": {},
+    "props": [
+      "title = \"Command Palette\"",
+      "description = \"Search for a command to run...\"",
+      "children",
+      "showCloseButton = false"
+    ]
+  },
+  {
+    "component": "context-menu",
+    "exports": [
+      "ContextMenu",
+      "ContextMenuTrigger",
+      "ContextMenuContent",
+      "ContextMenuItem",
+      "ContextMenuCheckboxItem",
+      "ContextMenuRadioItem",
+      "ContextMenuLabel",
+      "ContextMenuSeparator",
+      "ContextMenuShortcut",
+      "ContextMenuGroup",
+      "ContextMenuPortal",
+      "ContextMenuSub",
+      "ContextMenuSubContent",
+      "ContextMenuSubTrigger",
+      "ContextMenuRadioGroup"
+    ],
+    "variants": {},
+    "props": [
+      "align = \"start\"",
+      "alignOffset = 4",
+      "side = \"right\"",
+      "sideOffset = 0",
+      "inset",
+      "variant = \"default\"",
+      "children",
+      "checked"
+    ]
+  },
+  {
+    "component": "dialog",
+    "exports": [
+      "Dialog",
+      "DialogClose",
+      "DialogContent",
+      "DialogDescription",
+      "DialogFooter",
+      "DialogHeader",
+      "DialogOverlay",
+      "DialogPortal",
+      "DialogTitle",
+      "DialogTrigger"
+    ],
+    "variants": {},
+    "props": ["children", "showCloseButton = true", "showCloseButton = false"]
+  },
+  {
+    "component": "direction",
+    "exports": ["DirectionProvider", "useDirection"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "drawer",
+    "exports": [
+      "Drawer",
+      "DrawerPortal",
+      "DrawerOverlay",
+      "DrawerSwipeHandle",
+      "DrawerTrigger",
+      "DrawerClose",
+      "DrawerContent",
+      "DrawerHeader",
+      "DrawerFooter",
+      "DrawerTitle",
+      "DrawerDescription"
+    ],
+    "variants": {},
+    "props": [
+      "modal = true",
+      "showSwipeHandle = false",
+      "snapPoints",
+      "swipeDirection = \"down\"",
+      "children"
+    ]
+  },
+  {
+    "component": "dropdown-menu",
+    "exports": [
+      "DropdownMenu",
+      "DropdownMenuPortal",
+      "DropdownMenuTrigger",
+      "DropdownMenuContent",
+      "DropdownMenuGroup",
+      "DropdownMenuLabel",
+      "DropdownMenuItem",
+      "DropdownMenuCheckboxItem",
+      "DropdownMenuRadioGroup",
+      "DropdownMenuRadioItem",
+      "DropdownMenuSeparator",
+      "DropdownMenuShortcut",
+      "DropdownMenuSub",
+      "DropdownMenuSubTrigger",
+      "DropdownMenuSubContent"
+    ],
+    "variants": {},
+    "props": [
+      "align = \"start\"",
+      "alignOffset = 0",
+      "side = \"bottom\"",
+      "sideOffset = 4",
+      "inset",
+      "variant = \"default\"",
+      "children",
+      "alignOffset = -3",
+      "side = \"right\"",
+      "sideOffset = 0",
+      "checked"
+    ]
+  },
+  {
+    "component": "empty",
+    "exports": [
+      "Empty",
+      "EmptyHeader",
+      "EmptyTitle",
+      "EmptyDescription",
+      "EmptyContent",
+      "EmptyMedia"
+    ],
+    "variants": {
+      "variant": ["default", "icon"]
+    },
+    "props": ["variant = \"default\""]
+  },
+  {
+    "component": "field",
+    "exports": [
+      "Field",
+      "FieldLabel",
+      "FieldDescription",
+      "FieldError",
+      "FieldGroup",
+      "FieldLegend",
+      "FieldSeparator",
+      "FieldSet",
+      "FieldContent",
+      "FieldTitle"
+    ],
+    "variants": {},
+    "props": ["variant = \"legend\"", "orientation = \"vertical\"", "children", "errors"]
+  },
+  {
+    "component": "hover-card",
+    "exports": ["HoverCard", "HoverCardTrigger", "HoverCardContent"],
+    "variants": {},
+    "props": ["side = \"bottom\"", "sideOffset = 4", "align = \"center\"", "alignOffset = 4"]
+  },
+  {
+    "component": "input",
+    "exports": ["Input"],
+    "variants": {},
+    "props": ["type"]
+  },
+  {
+    "component": "input-group",
+    "exports": [
+      "InputGroup",
+      "InputGroupAddon",
+      "InputGroupButton",
+      "InputGroupText",
+      "InputGroupInput",
+      "InputGroupTextarea"
+    ],
+    "variants": {
+      "align": ["inline-start", "inline-end", "block-start", "block-end"]
+    },
+    "props": [
+      "align = \"inline-start\"",
+      "type = \"button\"",
+      "variant = \"ghost\"",
+      "size = \"xs\""
+    ]
+  },
+  {
+    "component": "input-otp",
+    "exports": ["InputOTP", "InputOTPGroup", "InputOTPSlot", "InputOTPSeparator"],
+    "variants": {},
+    "props": ["containerClassName", "index"]
+  },
+  {
+    "component": "item",
+    "exports": [
+      "Item",
+      "ItemMedia",
+      "ItemContent",
+      "ItemActions",
+      "ItemGroup",
+      "ItemSeparator",
+      "ItemTitle",
+      "ItemDescription",
+      "ItemHeader",
+      "ItemFooter"
+    ],
+    "variants": {
+      "variant": ["default", "outline", "muted"],
+      "size": ["default", "sm", "xs"]
+    },
+    "props": ["variant = \"default\"", "size = \"default\"", "render"]
+  },
+  {
+    "component": "kbd",
+    "exports": ["Kbd", "KbdGroup"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "label",
+    "exports": ["Label"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "marker",
+    "exports": ["Marker", "MarkerIcon", "MarkerContent", "markerVariants"],
+    "variants": {
+      "variant": ["default", "separator", "border"]
+    },
+    "props": ["variant = \"default\"", "render"]
+  },
+  {
+    "component": "menubar",
+    "exports": [
+      "Menubar",
+      "MenubarPortal",
+      "MenubarMenu",
+      "MenubarTrigger",
+      "MenubarContent",
+      "MenubarGroup",
+      "MenubarSeparator",
+      "MenubarLabel",
+      "MenubarItem",
+      "MenubarShortcut",
+      "MenubarCheckboxItem",
+      "MenubarRadioGroup",
+      "MenubarRadioItem",
+      "MenubarSub",
+      "MenubarSubTrigger",
+      "MenubarSubContent"
+    ],
+    "variants": {},
+    "props": [
+      "align = \"start\"",
+      "alignOffset = -4",
+      "sideOffset = 8",
+      "inset",
+      "variant = \"default\"",
+      "children",
+      "checked"
+    ]
+  },
+  {
+    "component": "message",
+    "exports": [
+      "MessageGroup",
+      "Message",
+      "MessageAvatar",
+      "MessageContent",
+      "MessageFooter",
+      "MessageHeader"
+    ],
+    "variants": {},
+    "props": ["align = \"start\""]
+  },
+  {
+    "component": "message-scroller",
+    "exports": [
+      "MessageScrollerProvider",
+      "MessageScroller",
+      "MessageScrollerViewport",
+      "MessageScrollerContent",
+      "MessageScrollerItem",
+      "MessageScrollerButton",
+      "useMessageScroller",
+      "useMessageScrollerScrollable",
+      "useMessageScrollerVisibility"
+    ],
+    "variants": {},
+    "props": [
+      "scrollAnchor = false",
+      "direction = \"end\"",
+      "children",
+      "render",
+      "variant = \"secondary\"",
+      "size = \"icon-sm\""
+    ]
+  },
+  {
+    "component": "native-select",
+    "exports": ["NativeSelect", "NativeSelectOptGroup", "NativeSelectOption"],
+    "variants": {},
+    "props": ["size = \"default\""]
+  },
+  {
+    "component": "navigation-menu",
+    "exports": [
+      "NavigationMenu",
+      "NavigationMenuContent",
+      "NavigationMenuIndicator",
+      "NavigationMenuItem",
+      "NavigationMenuLink",
+      "NavigationMenuList",
+      "NavigationMenuTrigger",
+      "navigationMenuTriggerStyle",
+      "NavigationMenuPositioner"
+    ],
+    "variants": {},
+    "props": [
+      "align = \"start\"",
+      "children",
+      "side = \"bottom\"",
+      "sideOffset = 8",
+      "alignOffset = 0"
+    ]
+  },
+  {
+    "component": "pagination",
+    "exports": [
+      "Pagination",
+      "PaginationContent",
+      "PaginationEllipsis",
+      "PaginationItem",
+      "PaginationLink",
+      "PaginationNext",
+      "PaginationPrevious"
+    ],
+    "variants": {},
+    "props": ["isActive", "size = \"icon\"", "text = \"Previous\"", "text = \"Next\""]
+  },
+  {
+    "component": "popover",
+    "exports": [
+      "Popover",
+      "PopoverContent",
+      "PopoverDescription",
+      "PopoverHeader",
+      "PopoverTitle",
+      "PopoverTrigger"
+    ],
+    "variants": {},
+    "props": ["align = \"center\"", "alignOffset = 0", "side = \"bottom\"", "sideOffset = 4"]
+  },
+  {
+    "component": "progress",
+    "exports": ["Progress", "ProgressTrack", "ProgressIndicator", "ProgressLabel", "ProgressValue"],
+    "variants": {},
+    "props": ["children", "value"]
+  },
+  {
+    "component": "questionnaire",
+    "exports": [
+      "Questionnaire",
+      "QuestionnaireActions",
+      "QuestionnaireChoice",
+      "QuestionnaireChoiceDescription",
+      "QuestionnaireChoices",
+      "QuestionnaireDescription",
+      "QuestionnaireError",
+      "QuestionnaireInput",
+      "QuestionnaireItem",
+      "QuestionnaireNext",
+      "QuestionnairePrevious",
+      "QuestionnaireProgress",
+      "QuestionnaireSkip",
+      "QuestionnaireSubmit",
+      "QuestionnaireTitle"
+    ],
+    "variants": {},
+    "props": ["children", "size = \"default\"", "variant = \"outline\"", "variant = \"default\""]
+  },
+  {
+    "component": "radio-group",
+    "exports": ["RadioGroup", "RadioGroupItem"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "resizable",
+    "exports": ["ResizableHandle", "ResizablePanel", "ResizablePanelGroup"],
+    "variants": {},
+    "props": ["withHandle"]
+  },
+  {
+    "component": "scroll-area",
+    "exports": ["ScrollArea", "ScrollBar"],
+    "variants": {},
+    "props": ["children", "orientation = \"vertical\""]
+  },
+  {
+    "component": "select",
+    "exports": [
+      "Select",
+      "SelectContent",
+      "SelectGroup",
+      "SelectItem",
+      "SelectLabel",
+      "SelectScrollDownButton",
+      "SelectScrollUpButton",
+      "SelectSeparator",
+      "SelectTrigger",
+      "SelectValue"
+    ],
+    "variants": {},
+    "props": [
+      "size = \"default\"",
+      "children",
+      "side = \"bottom\"",
+      "sideOffset = 4",
+      "align = \"center\"",
+      "alignOffset = 0",
+      "alignItemWithTrigger = true"
+    ]
+  },
+  {
+    "component": "separator",
+    "exports": ["Separator"],
+    "variants": {},
+    "props": ["orientation = \"horizontal\""]
+  },
+  {
+    "component": "sheet",
+    "exports": [
+      "Sheet",
+      "SheetTrigger",
+      "SheetClose",
+      "SheetContent",
+      "SheetHeader",
+      "SheetFooter",
+      "SheetTitle",
+      "SheetDescription"
+    ],
+    "variants": {},
+    "props": ["children", "side = \"right\"", "showCloseButton = true"]
+  },
+  {
+    "component": "sidebar",
+    "exports": [
+      "Sidebar",
+      "SidebarContent",
+      "SidebarFooter",
+      "SidebarGroup",
+      "SidebarGroupAction",
+      "SidebarGroupContent",
+      "SidebarGroupLabel",
+      "SidebarHeader",
+      "SidebarInput",
+      "SidebarInset",
+      "SidebarMenu",
+      "SidebarMenuAction",
+      "SidebarMenuBadge",
+      "SidebarMenuButton",
+      "SidebarMenuItem",
+      "SidebarMenuSkeleton",
+      "SidebarMenuSub",
+      "SidebarMenuSubButton",
+      "SidebarMenuSubItem",
+      "SidebarProvider",
+      "SidebarRail",
+      "SidebarSeparator",
+      "SidebarTrigger",
+      "useSidebar"
+    ],
+    "variants": {
+      "variant": ["default", "outline"],
+      "size": ["default", "sm", "lg"]
+    },
+    "props": [
+      "defaultOpen = true",
+      "style",
+      "children",
+      "side = \"left\"",
+      "variant = \"sidebar\"",
+      "collapsible = \"offcanvas\"",
+      "dir",
+      "onClick",
+      "render",
+      "isActive = false",
+      "variant = \"default\"",
+      "size = \"default\"",
+      "tooltip",
+      "showOnHover = false",
+      "showIcon = false",
+      "size = \"md\""
+    ]
+  },
+  {
+    "component": "skeleton",
+    "exports": ["Skeleton"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "slider",
+    "exports": ["Slider"],
+    "variants": {},
+    "props": ["defaultValue", "value", "min = 0", "max = 100"]
+  },
+  {
+    "component": "sonner",
+    "exports": ["Toaster"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "spinner",
+    "exports": ["Spinner"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "switch",
+    "exports": ["Switch"],
+    "variants": {},
+    "props": ["size = \"default\""]
+  },
+  {
+    "component": "table",
+    "exports": [
+      "Table",
+      "TableHeader",
+      "TableBody",
+      "TableFooter",
+      "TableHead",
+      "TableRow",
+      "TableCell",
+      "TableCaption"
+    ],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "tabs",
+    "exports": ["Tabs", "TabsList", "TabsTrigger", "TabsContent", "tabsListVariants"],
+    "variants": {
+      "variant": ["default", "line"]
+    },
+    "props": ["orientation = \"horizontal\"", "variant = \"default\""]
+  },
+  {
+    "component": "textarea",
+    "exports": ["Textarea"],
+    "variants": {},
+    "props": []
+  },
+  {
+    "component": "toast",
+    "exports": [
+      "Toaster",
+      "Toast",
+      "ToastAction",
+      "ToastClose",
+      "ToastContent",
+      "ToastDescription",
+      "ToastPortal",
+      "ToastProvider",
+      "ToastTitle",
+      "ToastViewport",
+      "createToastManager",
+      "toast",
+      "useToastManager"
+    ],
+    "variants": {},
+    "props": [
+      "render = <Button variant=\"outline\" size=\"sm\" />",
+      "children",
+      "render = <Button variant=\"ghost\" size=\"icon-sm\" />",
+      "toastManager = toast"
+    ]
+  },
+  {
+    "component": "toggle",
+    "exports": ["Toggle", "toggleVariants"],
+    "variants": {
+      "variant": ["default", "outline"],
+      "size": ["default", "sm", "lg"]
+    },
+    "props": ["variant = \"default\"", "size = \"default\""]
+  },
+  {
+    "component": "toggle-group",
+    "exports": ["ToggleGroup", "ToggleGroupItem"],
+    "variants": {},
+    "props": [
+      "variant",
+      "size",
+      "spacing = 2",
+      "orientation = \"horizontal\"",
+      "children",
+      "variant = \"default\"",
+      "size = \"default\""
+    ]
+  },
+  {
+    "component": "tooltip",
+    "exports": ["Tooltip", "TooltipTrigger", "TooltipContent", "TooltipProvider"],
+    "variants": {},
+    "props": [
+      "delay = 0",
+      "side = \"top\"",
+      "sideOffset = 4",
+      "align = \"center\"",
+      "alignOffset = 0",
+      "children"
+    ]
+  },
+  {
+    "component": "trace",
+    "exports": [
+      "Trace",
+      "TraceLine",
+      "TraceIcon",
+      "TraceTitle",
+      "TraceDescription",
+      "TraceCollapsible",
+      "TraceCollapsibleTrigger",
+      "TraceCollapsibleContent"
+    ],
+    "variants": {},
+    "props": ["status", "children"]
+  }
+]

@@ -1,15 +1,10 @@
-import {
-  Questionnaire,
-  QuestionnaireItem,
-  QuestionnaireInput,
-  QuestionnaireSubmit,
-} from "./index"
+import { Questionnaire, QuestionnaireItem, QuestionnaireInput, QuestionnaireSubmit } from "./index";
 
 const meta = {
   title: "Components/Questionnaire",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -20,4 +15,4 @@ export const Default = {
       </QuestionnaireItem>
     </Questionnaire>
   ),
-}
+};

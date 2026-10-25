@@ -6,13 +6,13 @@ import {
   TableHead,
   TableCell,
   TableCaption,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Table",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -30,4 +30,4 @@ export const Default = {
       <TableCaption>Caption</TableCaption>
     </Table>
   ),
-}
+};

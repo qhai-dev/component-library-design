@@ -1,14 +1,14 @@
-import { Button } from "./index"
+import { Button } from "./index";
 
 const meta = {
   title: "Components/Button",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => <Button>Click me</Button>,
-}
+};
 
 export const Variants = {
   render: () => (
@@ -21,7 +21,7 @@ export const Variants = {
       <Button variant="link">Link</Button>
     </div>
   ),
-}
+};
 
 export const Sizes = {
   render: () => (
@@ -31,7 +31,7 @@ export const Sizes = {
       <Button size="lg">Large 40</Button>
     </div>
   ),
-}
+};
 
 export const Disabled = {
   render: () => (
@@ -42,4 +42,4 @@ export const Disabled = {
       </Button>
     </div>
   ),
-}
+};

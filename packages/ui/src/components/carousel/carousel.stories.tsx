@@ -1,16 +1,10 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "./index"
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./index";
 
 const meta = {
   title: "Components/Carousel",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -23,4 +17,4 @@ export const Default = {
       <CarouselNext />
     </Carousel>
   ),
-}
+};

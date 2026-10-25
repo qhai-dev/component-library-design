@@ -1,12 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "./index";
 
 describe("Carousel", () => {
   it("renders", () => {
@@ -19,6 +13,6 @@ describe("Carousel", () => {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>,
-    )
-  })
-})
+    );
+  });
+});

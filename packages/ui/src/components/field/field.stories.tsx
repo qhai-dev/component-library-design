@@ -1,10 +1,10 @@
-import { Field, FieldLabel, FieldError, FieldDescription } from "./index"
+import { Field, FieldLabel, FieldError, FieldDescription } from "./index";
 
 const meta = {
   title: "Components/Field",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -14,4 +14,4 @@ export const Default = {
       <FieldError>Error</FieldError>
     </Field>
   ),
-}
+};

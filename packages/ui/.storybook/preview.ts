@@ -1,5 +1,5 @@
-import type { Preview } from "@storybook/react-vite"
-import "./preview.css"
+import type { Preview } from "@storybook/react-vite";
+import "./preview.css";
 
 const previewObj: Preview = {
   parameters: {
@@ -18,6 +18,6 @@ const previewObj: Preview = {
     },
     layout: "centered",
   },
-}
+};
 
-export default previewObj
+export default previewObj;

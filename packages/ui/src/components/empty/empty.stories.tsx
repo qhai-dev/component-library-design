@@ -1,10 +1,10 @@
-import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from "./index"
+import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from "./index";
 
 const meta = {
   title: "Components/Empty",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -15,4 +15,4 @@ export const Default = {
       </EmptyHeader>
     </Empty>
   ),
-}
+};

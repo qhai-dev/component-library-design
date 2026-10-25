@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   Sheet,
   SheetTrigger,
@@ -7,7 +7,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetDescription,
-} from "./index"
+} from "./index";
 
 describe("Sheet", () => {
   it("renders", () => {
@@ -21,6 +21,6 @@ describe("Sheet", () => {
           </SheetHeader>
         </SheetContent>
       </Sheet>,
-    )
-  })
-})
+    );
+  });
+});

@@ -3,13 +3,13 @@ import {
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/NavigationMenu",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -21,4 +21,4 @@ export const Default = {
       </NavigationMenuList>
     </NavigationMenu>
   ),
-}
+};

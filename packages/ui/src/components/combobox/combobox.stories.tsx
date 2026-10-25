@@ -5,13 +5,13 @@ import {
   ComboboxList,
   ComboboxItem,
   ComboboxEmpty,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Combobox",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -25,4 +25,4 @@ export const Default = {
       </ComboboxContent>
     </Combobox>
   ),
-}
+};

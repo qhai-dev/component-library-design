@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   Combobox,
   ComboboxTrigger,
@@ -7,7 +7,7 @@ import {
   ComboboxList,
   ComboboxItem,
   ComboboxEmpty,
-} from "./index"
+} from "./index";
 
 describe("Combobox", () => {
   it("renders", () => {
@@ -21,6 +21,6 @@ describe("Combobox", () => {
           </ComboboxList>
         </ComboboxContent>
       </Combobox>,
-    )
-  })
-})
+    );
+  });
+});

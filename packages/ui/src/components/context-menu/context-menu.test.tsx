@@ -1,11 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import {
-  ContextMenu,
-  ContextMenuTrigger,
-  ContextMenuContent,
-  ContextMenuItem,
-} from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "./index";
 
 describe("ContextMenu", () => {
   it("renders", () => {
@@ -16,6 +11,6 @@ describe("ContextMenu", () => {
           <ContextMenuItem>Item</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>,
-    )
-  })
-})
+    );
+  });
+});

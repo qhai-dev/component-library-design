@@ -1,14 +1,14 @@
-import { Checkbox } from "./index"
+import { Checkbox } from "./index";
 
 const meta = {
   title: "Components/Checkbox",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => <Checkbox aria-label="Check me" />,
-}
+};
 
 export const States = {
   render: () => (
@@ -19,4 +19,4 @@ export const States = {
       <Checkbox disabled defaultChecked aria-label="disabled checked" />
     </div>
   ),
-}
+};

@@ -1,17 +1,10 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "./index"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./index";
 
 const meta = {
   title: "Components/Card",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -24,4 +17,4 @@ export const Default = {
       <CardFooter>Footer</CardFooter>
     </Card>
   ),
-}
+};

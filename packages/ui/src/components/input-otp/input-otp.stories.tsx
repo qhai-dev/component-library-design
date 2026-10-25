@@ -1,10 +1,10 @@
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "./index"
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "./index";
 
 const meta = {
   title: "Components/InputOtp",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -15,4 +15,4 @@ export const Default = {
       </InputOTPGroup>
     </InputOTP>
   ),
-}
+};

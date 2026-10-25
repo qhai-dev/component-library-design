@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { DirectionProvider } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { DirectionProvider } from "./index";
 
 describe("Direction", () => {
   it("renders", () => {
@@ -8,6 +8,6 @@ describe("Direction", () => {
       <DirectionProvider direction="ltr">
         <div>dir</div>
       </DirectionProvider>,
-    )
-  })
-})
+    );
+  });
+});

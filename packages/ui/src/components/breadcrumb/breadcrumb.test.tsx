@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -7,7 +7,7 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "./index"
+} from "./index";
 
 describe("Breadcrumb", () => {
   it("renders", () => {
@@ -23,6 +23,6 @@ describe("Breadcrumb", () => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>,
-    )
-  })
-})
+    );
+  });
+});

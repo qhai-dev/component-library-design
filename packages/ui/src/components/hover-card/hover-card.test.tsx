@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "./index";
 
 describe("HoverCard", () => {
   it("renders", () => {
@@ -9,6 +9,6 @@ describe("HoverCard", () => {
         <HoverCardTrigger>Hover</HoverCardTrigger>
         <HoverCardContent>Content</HoverCardContent>
       </HoverCard>,
-    )
-  })
-})
+    );
+  });
+});

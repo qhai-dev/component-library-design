@@ -1,10 +1,10 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "./index"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./index";
 
 const meta = {
   title: "Components/Tabs",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -17,4 +17,4 @@ export const Default = {
       <TabsContent value="b">Content B</TabsContent>
     </Tabs>
   ),
-}
+};

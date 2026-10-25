@@ -1,15 +1,10 @@
-import {
-  Attachment,
-  AttachmentContent,
-  AttachmentTitle,
-  AttachmentDescription,
-} from "./index"
+import { Attachment, AttachmentContent, AttachmentTitle, AttachmentDescription } from "./index";
 
 const meta = {
   title: "Components/Attachment",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -20,4 +15,4 @@ export const Default = {
       </AttachmentContent>
     </Attachment>
   ),
-}
+};

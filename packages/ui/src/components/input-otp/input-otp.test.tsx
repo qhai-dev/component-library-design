@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "./index";
 
 describe("InputOtp", () => {
   it("renders", () => {
@@ -11,6 +11,6 @@ describe("InputOtp", () => {
           <InputOTPSlot index={1} />
         </InputOTPGroup>
       </InputOTP>,
-    )
-  })
-})
+    );
+  });
+});

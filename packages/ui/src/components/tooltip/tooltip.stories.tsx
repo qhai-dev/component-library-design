@@ -1,10 +1,10 @@
-import { Tooltip, TooltipTrigger, TooltipContent } from "./index"
+import { Tooltip, TooltipTrigger, TooltipContent } from "./index";
 
 const meta = {
   title: "Components/Tooltip",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,4 +13,4 @@ export const Default = {
       <TooltipContent>Tip</TooltipContent>
     </Tooltip>
   ),
-}
+};

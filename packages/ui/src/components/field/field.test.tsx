@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { Field, FieldLabel, FieldError, FieldDescription } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Field, FieldLabel, FieldError, FieldDescription } from "./index";
 
 describe("Field", () => {
   it("renders", () => {
@@ -10,6 +10,6 @@ describe("Field", () => {
         <FieldDescription>Helper</FieldDescription>
         <FieldError>Error</FieldError>
       </Field>,
-    )
-  })
-})
+    );
+  });
+});

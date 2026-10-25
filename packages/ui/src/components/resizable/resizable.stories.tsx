@@ -1,10 +1,10 @@
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./index"
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./index";
 
 const meta = {
   title: "Components/Resizable",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -14,4 +14,4 @@ export const Default = {
       <ResizablePanel>Two</ResizablePanel>
     </ResizablePanelGroup>
   ),
-}
+};

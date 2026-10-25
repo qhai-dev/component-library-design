@@ -1,15 +1,10 @@
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "./index"
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./index";
 
 const meta = {
   title: "Components/DropdownMenu",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -20,4 +15,4 @@ export const Default = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
-}
+};

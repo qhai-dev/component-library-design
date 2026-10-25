@@ -1,26 +1,27 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "cn";
 
-import { Button } from "../button"
-import { IconPlaceholder } from "../../internal/icon-placeholder"
+import { Button } from "../button";
+import { IconPlaceholder } from "../../internal/icon-placeholder";
 
 const codeBlockVariants = cva(
-  "cn-code-block group/code-block relative flex w-full min-w-0 flex-col overflow-hidden",
+  "rounded-xl font-mono text-sm has-[>[data-slot=code-block-content]:focus-visible]:outline-2 has-[>[data-slot=code-block-content]:focus-visible]:outline-ring data-[size=sm]:text-xs group/code-block relative flex w-full min-w-0 flex-col overflow-hidden",
   {
     variants: {
       variant: {
-        default: "cn-code-block-variant-default",
-        destructive: "cn-code-block-variant-destructive",
+        default:
+          "border border-border bg-muted-hover text-muted-foreground has-[>[data-slot=code-block-content]:focus-visible]:border-primary",
+        destructive: "border border-destructive text-destructive",
       },
     },
     defaultVariants: {
       variant: "default",
     },
   },
-)
+);
 
 function CodeBlock({
   className,
@@ -37,7 +38,7 @@ function CodeBlock({
       className={cn(codeBlockVariants({ variant }), className)}
       {...props}
     />
-  )
+  );
 }
 
 function CodeBlockHeader({ className, ...props }: React.ComponentProps<"div">) {
@@ -45,12 +46,12 @@ function CodeBlockHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="code-block-header"
       className={cn(
-        "cn-code-block-header flex min-w-0 shrink-0 items-center *:has-[>[data-slot=code-block-title]]:min-w-0",
+        "gap-2 px-3 pt-3 text-muted-foreground group-data-[size=sm]/code-block:px-2.5 group-data-[size=sm]/code-block:pt-2.5 group-data-[variant=destructive]/code-block:text-destructive flex min-w-0 shrink-0 items-center *:has-[>[data-slot=code-block-title]]:min-w-0",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function CodeBlockTitle({ className, ...props }: React.ComponentProps<"div">) {
@@ -58,28 +59,25 @@ function CodeBlockTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="code-block-title"
       className={cn(
-        "cn-code-block-title min-w-0 truncate [&_svg]:pointer-events-none [&_svg]:inline-block [&_svg]:align-middle",
+        "font-sans text-sm font-semibold text-foreground group-data-[size=sm]/code-block:text-xs group-data-[variant=destructive]/code-block:text-destructive [&_svg:not([class*='size-'])]:size-3.5 *:[svg]:me-1.5 min-w-0 truncate [&_svg]:pointer-events-none [&_svg]:inline-block [&_svg]:align-middle",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
-function CodeBlockActions({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function CodeBlockActions({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="code-block-actions"
       className={cn(
-        "cn-code-block-actions ms-auto flex shrink-0 items-center [[data-slot=code-block]>&]:absolute [[data-slot=code-block]>&]:z-10 [[data-slot=code-block]>&]:opacity-0 [[data-slot=code-block]>&]:transition-opacity [[data-slot=code-block]>&]:group-focus-within/code-block:opacity-100 [[data-slot=code-block]>&]:group-hover/code-block:opacity-100 [[data-slot=code-block]>&]:pointer-coarse:opacity-100",
+        "-my-1 -me-1.5 gap-1 [[data-slot=code-block]>&]:end-2 [[data-slot=code-block]>&]:top-2 [[data-slot=code-block]>&]:m-0 group-data-[size=sm]/code-block:[[data-slot=code-block]>&]:end-1.5 group-data-[size=sm]/code-block:[[data-slot=code-block]>&]:top-1.5 [[data-slot=code-block]>&]:*:[button]:border [[data-slot=code-block]>&]:*:[button]:border-border [[data-slot=code-block]>&]:*:[button]:bg-background ms-auto flex shrink-0 items-center [[data-slot=code-block]>&]:absolute [[data-slot=code-block]>&]:z-10 [[data-slot=code-block]>&]:opacity-0 [[data-slot=code-block]>&]:transition-opacity [[data-slot=code-block]>&]:group-focus-within/code-block:opacity-100 [[data-slot=code-block]>&]:group-hover/code-block:opacity-100 [[data-slot=code-block]>&]:pointer-coarse:opacity-100",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function CodeBlockCopyButton({
@@ -90,16 +88,16 @@ function CodeBlockCopyButton({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button> & { value: string }) {
-  const [copied, setCopied] = React.useState(false)
+  const [copied, setCopied] = React.useState(false);
 
   React.useEffect(() => {
     if (!copied) {
-      return
+      return;
     }
 
-    const timeout = setTimeout(() => setCopied(false), 2000)
-    return () => clearTimeout(timeout)
-  }, [copied])
+    const timeout = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(timeout);
+  }, [copied]);
 
   return (
     <>
@@ -109,13 +107,13 @@ function CodeBlockCopyButton({
         variant={variant}
         size={size}
         aria-label={copied ? "Copied" : "Copy"}
-        className={cn("cn-code-block-copy-button", className)}
+        className={cn("", className)}
         onClick={(event) => {
-          onClick?.(event)
+          onClick?.(event);
           navigator.clipboard
             .writeText(value)
             .then(() => setCopied(true))
-            .catch(() => {})
+            .catch(() => {});
         }}
         {...props}
       >
@@ -141,7 +139,7 @@ function CodeBlockCopyButton({
         {copied ? "Copied" : ""}
       </span>
     </>
-  )
+  );
 }
 
 function CodeBlockContent({
@@ -153,9 +151,9 @@ function CodeBlockContent({
   startLine = 1,
   ...props
 }: React.ComponentProps<"pre"> & {
-  wrap?: boolean
-  lineNumbers?: boolean
-  startLine?: number
+  wrap?: boolean;
+  lineNumbers?: boolean;
+  startLine?: number;
 }) {
   return (
     <pre
@@ -166,44 +164,42 @@ function CodeBlockContent({
       tabIndex={0}
       style={{ counterReset: `line ${startLine - 1}`, ...style }}
       className={cn(
-        "cn-code-block-content min-h-0 min-w-0 scroll-fade-x scrollbar-thin overflow-auto text-start font-mono outline-none data-wrap:scroll-fade-y data-wrap:wrap-break-word data-wrap:whitespace-pre-wrap",
+        "px-3 py-3 leading-relaxed group-has-data-[slot=code-block-footer]/code-block:pb-2 group-has-data-[slot=code-block-header]/code-block:pt-2 group-data-[size=sm]/code-block:px-2.5 group-data-[size=sm]/code-block:py-2.5 group-data-[size=sm]/code-block:group-has-data-[slot=code-block-header]/code-block:pt-1.5 min-h-0 min-w-0 scroll-fade-x scrollbar-thin overflow-auto text-start font-mono outline-none data-wrap:scroll-fade-y data-wrap:wrap-break-word data-wrap:whitespace-pre-wrap",
         className,
       )}
       {...props}
     >
       <code
         data-slot="code-block-code"
-        className="cn-code-block-code grid min-h-lh min-w-max content-start in-data-numbered:grid-cols-[auto_1fr] in-data-wrap:min-w-0"
+        className="grid min-h-lh min-w-max content-start in-data-numbered:grid-cols-[auto_1fr] in-data-wrap:min-w-0"
       >
         {lineNumbers && typeof children === "string"
           ? children
               .replace(/\n$/, "")
               .split("\n")
-              .map((line, index) => (
-                <CodeBlockLine key={index}>{line}</CodeBlockLine>
-              ))
+              .map((line, index) => <CodeBlockLine key={index}>{line}</CodeBlockLine>)
           : children}
       </code>
     </pre>
-  )
+  );
 }
 
 const codeBlockLineVariants = cva(
-  "cn-code-block-line relative block min-h-lh after:absolute after:top-0 after:select-none in-data-numbered:col-span-2 in-data-numbered:grid in-data-numbered:grid-cols-subgrid in-data-numbered:[counter-increment:line] in-data-numbered:before:content-[counter(line)] in-data-numbered:before:select-none in-data-numbered:supports-[content:counter(line)_/_'']:before:content-[counter(line)_/_'']",
+  "-mx-3 px-3 group-data-[size=sm]/code-block:-mx-2.5 group-data-[size=sm]/code-block:px-2.5 before:min-w-6 before:text-end before:text-muted-foreground after:start-1 after:text-muted-foreground in-data-numbered:gap-x-3 relative block min-h-lh after:absolute after:top-0 after:select-none in-data-numbered:col-span-2 in-data-numbered:grid in-data-numbered:grid-cols-subgrid in-data-numbered:[counter-increment:line] in-data-numbered:before:content-[counter(line)] in-data-numbered:before:select-none in-data-numbered:supports-[content:counter(line)_/_'']:before:content-[counter(line)_/_'']",
   {
     variants: {
       variant: {
-        default: "cn-code-block-line-variant-default",
-        added: "cn-code-block-line-variant-added",
-        removed: "cn-code-block-line-variant-removed",
-        highlighted: "cn-code-block-line-variant-highlighted",
+        default: "",
+        added: "bg-muted-active after:content-['+']",
+        removed: "bg-destructive-light after:text-destructive after:content-['−']",
+        highlighted: "bg-muted-active",
       },
     },
     defaultVariants: {
       variant: "default",
     },
   },
-)
+);
 
 function CodeBlockLine({
   className,
@@ -216,7 +212,7 @@ function CodeBlockLine({
     children === undefined ||
     children === null ||
     children === "" ||
-    (Array.isArray(children) && children.length === 0)
+    (Array.isArray(children) && children.length === 0);
 
   return (
     <span
@@ -229,7 +225,7 @@ function CodeBlockLine({
         {empty ? "\n" : children}
       </span>
     </span>
-  )
+  );
 }
 
 function CodeBlockFooter({ className, ...props }: React.ComponentProps<"div">) {
@@ -237,12 +233,12 @@ function CodeBlockFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="code-block-footer"
       className={cn(
-        "cn-code-block-footer flex min-w-0 shrink-0 items-center",
+        "gap-2 px-3 pb-3 text-muted-foreground group-data-[size=sm]/code-block:px-2.5 group-data-[size=sm]/code-block:pb-2.5 flex min-w-0 shrink-0 items-center",
         className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -254,4 +250,4 @@ export {
   CodeBlockContent,
   CodeBlockLine,
   CodeBlockFooter,
-}
+};

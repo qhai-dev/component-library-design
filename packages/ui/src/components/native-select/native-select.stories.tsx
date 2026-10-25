@@ -1,10 +1,10 @@
-import { NativeSelect, NativeSelectOption } from "./index"
+import { NativeSelect, NativeSelectOption } from "./index";
 
 const meta = {
   title: "Components/NativeSelect",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -12,4 +12,4 @@ export const Default = {
       <NativeSelectOption value="a">Option A</NativeSelectOption>
     </NativeSelect>
   ),
-}
+};

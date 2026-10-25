@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { AspectRatio } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { AspectRatio } from "./index";
 
 describe("AspectRatio", () => {
   it("renders", () => {
@@ -8,6 +8,6 @@ describe("AspectRatio", () => {
       <AspectRatio ratio={16 / 9}>
         <div>16:9</div>
       </AspectRatio>,
-    )
-  })
-})
+    );
+  });
+});

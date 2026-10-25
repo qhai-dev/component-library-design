@@ -1,12 +1,12 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   MessageScrollerProvider,
   MessageScroller,
   MessageScrollerViewport,
   MessageScrollerContent,
   MessageScrollerItem,
-} from "./index"
+} from "./index";
 
 describe("MessageScroller", () => {
   it("renders", () => {
@@ -20,6 +20,6 @@ describe("MessageScroller", () => {
           </MessageScrollerViewport>
         </MessageScroller>
       </MessageScrollerProvider>,
-    )
-  })
-})
+    );
+  });
+});

@@ -1,26 +1,26 @@
-import * as React from "react"
+import * as React from "react";
 
-import { composeRefs } from "../use-render"
+import { composeRefs } from "../use-render";
 import {
   createQuestionnaireCollection,
   getCollectionDefinitionWarnings,
   getCollectionRegistrationWarnings,
   getInitialItemName,
-} from "./collection"
+} from "./collection";
 import type {
   ItemRegistration,
   PendingFocus,
   QuestionnaireContextValue,
   QuestionnaireRootProps,
   QuestionnaireRootState,
-} from "./types"
+} from "./types";
 import {
   compareItemOrder,
   getShortcutFromKey,
   isAnswerFilled,
   isRadioTarget,
   isTextEntryTarget,
-} from "./utils"
+} from "./utils";
 
 type UseQuestionnaireRootParameters = Pick<
   QuestionnaireRootProps,
@@ -33,7 +33,7 @@ type UseQuestionnaireRootParameters = Pick<
   | "onSubmit"
   | "ref"
   | "shortcuts"
->
+>;
 
 function useQuestionnaireRoot({
   defaultItem,
@@ -49,198 +49,167 @@ function useQuestionnaireRoot({
   const collection = React.useMemo(
     () => createQuestionnaireCollection(itemDefinitions),
     [itemDefinitions],
-  )
-  const [registrations, setRegistrations] = React.useState<ItemRegistration[]>(
-    [],
-  )
-  const [uncontrolledItem, setUncontrolledItem] = React.useState<string | null>(
-    () => getInitialItemName(collection, defaultItem),
-  )
-  const [rootElement, setRootElement] = React.useState<HTMLFormElement | null>(
-    null,
-  )
-  const [domVersion, setDomVersion] = React.useState(0)
-  const pendingFocusRef = React.useRef<PendingFocus | null>(null)
-  const controlled = controlledItem !== undefined
-  const activeItemName = controlled ? controlledItem : uncontrolledItem
-  const previousActiveItemNameRef = React.useRef(activeItemName)
-  const nativeValidation = noValidate === false
-  const shortcuts = shortcutMode ?? null
+  );
+  const [registrations, setRegistrations] = React.useState<ItemRegistration[]>([]);
+  const [uncontrolledItem, setUncontrolledItem] = React.useState<string | null>(() =>
+    getInitialItemName(collection, defaultItem),
+  );
+  const [rootElement, setRootElement] = React.useState<HTMLFormElement | null>(null);
+  const [domVersion, setDomVersion] = React.useState(0);
+  const pendingFocusRef = React.useRef<PendingFocus | null>(null);
+  const controlled = controlledItem !== undefined;
+  const activeItemName = controlled ? controlledItem : uncontrolledItem;
+  const previousActiveItemNameRef = React.useRef(activeItemName);
+  const nativeValidation = noValidate === false;
+  const shortcuts = shortcutMode ?? null;
 
-  const activeWarningsRef = React.useRef(new Set<string>())
+  const activeWarningsRef = React.useRef(new Set<string>());
 
   React.useLayoutEffect(() => {
     if (process.env.NODE_ENV === "production") {
-      return
+      return;
     }
 
     if (!collection || !rootElement) {
-      activeWarningsRef.current.clear()
-      return
+      activeWarningsRef.current.clear();
+      return;
     }
 
-    let cancelled = false
+    let cancelled = false;
 
     queueMicrotask(() => {
       if (cancelled) {
-        return
+        return;
       }
 
       const warnings = [
         ...getCollectionDefinitionWarnings(collection, defaultItem),
-        ...getCollectionRegistrationWarnings(
-          collection,
-          registrations,
-          shortcuts,
-        ),
-      ]
-      const activeWarnings = new Set(warnings)
+        ...getCollectionRegistrationWarnings(collection, registrations, shortcuts),
+      ];
+      const activeWarnings = new Set(warnings);
 
       activeWarnings.forEach((warning) => {
         if (!activeWarningsRef.current.has(warning)) {
-          console.warn(`[Questionnaire] ${warning}`)
+          console.warn(`[Questionnaire] ${warning}`);
         }
-      })
+      });
 
-      activeWarningsRef.current = activeWarnings
-    })
+      activeWarningsRef.current = activeWarnings;
+    });
 
     return () => {
-      cancelled = true
-    }
-  }, [collection, defaultItem, registrations, rootElement, shortcuts])
+      cancelled = true;
+    };
+  }, [collection, defaultItem, registrations, rootElement, shortcuts]);
 
   React.useLayoutEffect(() => {
     if (!rootElement || typeof MutationObserver === "undefined") {
-      return
+      return;
     }
 
     const observer = new MutationObserver(() => {
-      setDomVersion((version) => version + 1)
-    })
+      setDomVersion((version) => version + 1);
+    });
 
-    observer.observe(rootElement, { childList: true, subtree: true })
+    observer.observe(rootElement, { childList: true, subtree: true });
 
-    return () => observer.disconnect()
-  }, [rootElement])
+    return () => observer.disconnect();
+  }, [rootElement]);
 
   const runtimeItems = React.useMemo(
-    () =>
-      registrations
-        .filter((registration) => !registration.disabled)
-        .sort(compareItemOrder),
+    () => registrations.filter((registration) => !registration.disabled).sort(compareItemOrder),
     [domVersion, registrations],
-  )
+  );
   const runtimeItemByName = React.useMemo(
-    () =>
-      new Map(
-        runtimeItems.map((runtimeItem) => [runtimeItem.name, runtimeItem]),
-      ),
+    () => new Map(runtimeItems.map((runtimeItem) => [runtimeItem.name, runtimeItem])),
     [runtimeItems],
-  )
-  const logicalItems = collection?.enabledItems ?? runtimeItems
-  const currentIndex = logicalItems.findIndex(
-    (logicalItem) => logicalItem.name === activeItemName,
-  )
+  );
+  const logicalItems = collection?.enabledItems ?? runtimeItems;
+  const currentIndex = logicalItems.findIndex((logicalItem) => logicalItem.name === activeItemName);
   const activeItem =
-    currentIndex < 0 || !activeItemName
-      ? null
-      : (runtimeItemByName.get(activeItemName) ?? null)
-  const activeDefinition = activeItemName
-    ? collection?.itemByName.get(activeItemName)
-    : undefined
+    currentIndex < 0 || !activeItemName ? null : (runtimeItemByName.get(activeItemName) ?? null);
+  const activeDefinition = activeItemName ? collection?.itemByName.get(activeItemName) : undefined;
   const activeItemRequired =
     currentIndex < 0
       ? null
       : activeDefinition
         ? Boolean(activeDefinition.required)
-        : (activeItem?.required ?? false)
+        : (activeItem?.required ?? false);
   const activeItemStatus =
-    currentIndex < 0
-      ? null
-      : (activeItem?.status ?? (activeItemName ? "unanswered" : null))
+    currentIndex < 0 ? null : (activeItem?.status ?? (activeItemName ? "unanswered" : null));
   const orderedRegistrations = React.useMemo(
     () =>
       collection
         ? collection.enabledItems.flatMap((definition) => {
-            const registration = runtimeItemByName.get(definition.name)
+            const registration = runtimeItemByName.get(definition.name);
 
-            return registration ? [registration] : []
+            return registration ? [registration] : [];
           })
         : runtimeItems,
     [collection, runtimeItemByName, runtimeItems],
-  )
-  const total = logicalItems.length
-  const current = currentIndex < 0 ? 0 : currentIndex + 1
-  const first = total > 0 && currentIndex === 0
-  const last = total > 0 && currentIndex === total - 1
+  );
+  const total = logicalItems.length;
+  const current = currentIndex < 0 ? 0 : currentIndex + 1;
+  const first = total > 0 && currentIndex === 0;
+  const last = total > 0 && currentIndex === total - 1;
 
   const setItem = React.useCallback(
     (nextItem: string, focusTarget: PendingFocus["target"] = "item") => {
       if (nextItem === activeItemName) {
-        return
+        return;
       }
 
       pendingFocusRef.current = {
         name: nextItem,
         target: focusTarget,
-      }
+      };
 
       if (!controlled) {
-        setUncontrolledItem(nextItem)
+        setUncontrolledItem(nextItem);
       }
 
-      onItemChange?.(nextItem)
+      onItemChange?.(nextItem);
     },
     [activeItemName, controlled, onItemChange],
-  )
+  );
 
   React.useLayoutEffect(() => {
     if (total === 0) {
-      return
+      return;
     }
 
     if (currentIndex < 0) {
       if (!controlled && activeItemName === null) {
-        setUncontrolledItem(logicalItems[0].name)
-        return
+        setUncontrolledItem(logicalItems[0].name);
+        return;
       }
 
-      setItem(logicalItems[0].name)
-      return
+      setItem(logicalItems[0].name);
+      return;
     }
 
-    const pendingFocus = pendingFocusRef.current
-    const activeItemChanged =
-      previousActiveItemNameRef.current !== activeItemName
+    const pendingFocus = pendingFocusRef.current;
+    const activeItemChanged = previousActiveItemNameRef.current !== activeItemName;
 
-    previousActiveItemNameRef.current = activeItemName
+    previousActiveItemNameRef.current = activeItemName;
 
     if (!pendingFocus || pendingFocus.name !== activeItemName) {
       if (controlled && activeItemChanged) {
-        pendingFocusRef.current = null
-        activeItem?.focus()
+        pendingFocusRef.current = null;
+        activeItem?.focus();
       }
 
-      return
+      return;
     }
 
     if (pendingFocus.target === "invalid") {
-      activeItem?.focusInvalid()
+      activeItem?.focusInvalid();
     } else {
-      activeItem?.focus()
+      activeItem?.focus();
     }
 
-    pendingFocusRef.current = null
-  }, [
-    activeItem,
-    activeItemName,
-    controlled,
-    currentIndex,
-    logicalItems,
-    setItem,
-    total,
-  ])
+    pendingFocusRef.current = null;
+  }, [activeItem, activeItemName, controlled, currentIndex, logicalItems, setItem, total]);
 
   const registerItem = React.useCallback((registration: ItemRegistration) => {
     setRegistrations((currentRegistrations) => [
@@ -250,112 +219,108 @@ function useQuestionnaireRoot({
           currentRegistration.name !== registration.name,
       ),
       registration,
-    ])
+    ]);
 
     return () => {
       setRegistrations((currentRegistrations) =>
-        currentRegistrations.filter(
-          (currentRegistration) => currentRegistration !== registration,
-        ),
-      )
-    }
-  }, [])
+        currentRegistrations.filter((currentRegistration) => currentRegistration !== registration),
+      );
+    };
+  }, []);
 
   const goPrevious = React.useCallback(() => {
     if (currentIndex <= 0) {
-      return
+      return;
     }
 
-    setItem(logicalItems[currentIndex - 1].name)
-  }, [currentIndex, logicalItems, setItem])
+    setItem(logicalItems[currentIndex - 1].name);
+  }, [currentIndex, logicalItems, setItem]);
 
   const goNext = React.useCallback(() => {
     if (!activeItem || currentIndex >= total - 1) {
-      return
+      return;
     }
 
     if (!activeItem.validate()) {
-      activeItem.focusInvalid()
-      return
+      activeItem.focusInvalid();
+      return;
     }
 
-    setItem(logicalItems[currentIndex + 1].name)
-  }, [activeItem, currentIndex, logicalItems, setItem, total])
+    setItem(logicalItems[currentIndex + 1].name);
+  }, [activeItem, currentIndex, logicalItems, setItem, total]);
 
   const confirmCurrent = React.useCallback(() => {
     if (!activeItem) {
-      return
+      return;
     }
 
     if (!activeItem.validate()) {
-      activeItem.focusInvalid()
-      return
+      activeItem.focusInvalid();
+      return;
     }
 
     if (last) {
-      rootElement?.requestSubmit()
-      return
+      rootElement?.requestSubmit();
+      return;
     }
 
-    setItem(logicalItems[currentIndex + 1].name)
-  }, [activeItem, currentIndex, last, logicalItems, rootElement, setItem])
+    setItem(logicalItems[currentIndex + 1].name);
+  }, [activeItem, currentIndex, last, logicalItems, rootElement, setItem]);
 
   const skipCurrent = React.useCallback(() => {
     if (!activeItem || activeItem.required) {
-      return
+      return;
     }
 
-    activeItem.skip()
+    activeItem.skip();
 
     if (!last) {
-      setItem(logicalItems[currentIndex + 1].name)
-      return
+      setItem(logicalItems[currentIndex + 1].name);
+      return;
     }
 
     queueMicrotask(() => {
-      rootElement?.requestSubmit()
-    })
-  }, [activeItem, currentIndex, last, logicalItems, rootElement, setItem])
+      rootElement?.requestSubmit();
+    });
+  }, [activeItem, currentIndex, last, logicalItems, rootElement, setItem]);
 
   function handleReset(event: React.FormEvent<HTMLFormElement>) {
-    onReset?.(event)
+    onReset?.(event);
 
     if (event.defaultPrevented) {
-      return
+      return;
     }
 
     for (const registration of registrations) {
-      registration.reset()
+      registration.reset();
     }
 
     const resetItemName = collection
       ? getInitialItemName(collection, defaultItem)
-      : (runtimeItems.find((registration) => registration.name === defaultItem)
-          ?.name ?? runtimeItems[0]?.name)
+      : (runtimeItems.find((registration) => registration.name === defaultItem)?.name ??
+        runtimeItems[0]?.name);
 
     if (resetItemName) {
-      setItem(resetItemName)
+      setItem(resetItemName);
     }
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    const firstInvalidItem = orderedRegistrations.find(
-      (registration) => !registration.validate(),
-    )
+    const firstInvalidItem = orderedRegistrations.find((registration) => !registration.validate());
 
     if (firstInvalidItem) {
-      event.preventDefault()
-      setItem(firstInvalidItem.name, "invalid")
+      event.preventDefault();
+      setItem(firstInvalidItem.name, "invalid");
 
       if (firstInvalidItem.name === activeItemName) {
-        firstInvalidItem.focusInvalid()
-        pendingFocusRef.current = null
+        firstInvalidItem.focusInvalid();
+        pendingFocusRef.current = null;
       }
 
-      return
+      return;
     }
 
-    onSubmit?.(event as unknown as Parameters<NonNullable<typeof onSubmit>>[0])
+    onSubmit?.(event as unknown as Parameters<NonNullable<typeof onSubmit>>[0]);
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLFormElement>) {
@@ -366,7 +331,7 @@ function useQuestionnaireRoot({
       !activeItem ||
       !(event.target instanceof Element)
     ) {
-      return
+      return;
     }
 
     if (
@@ -375,28 +340,28 @@ function useQuestionnaireRoot({
       !event.altKey &&
       !event.shiftKey
     ) {
-      event.preventDefault()
+      event.preventDefault();
 
       if (!event.repeat) {
-        confirmCurrent()
+        confirmCurrent();
       }
 
-      return
+      return;
     }
 
     if (event.metaKey || event.ctrlKey || event.altKey) {
-      return
+      return;
     }
 
     if (event.key === "ArrowUp" || event.key === "ArrowDown") {
       const moved = activeItem.moveAnswerFocus(
         event.target,
         event.key === "ArrowDown" ? "next" : "previous",
-      )
+      );
 
       if (moved) {
-        event.preventDefault()
-        return
+        event.preventDefault();
+        return;
       }
     }
 
@@ -405,58 +370,58 @@ function useQuestionnaireRoot({
       !isTextEntryTarget(event.target) &&
       !isRadioTarget(event.target)
     ) {
-      event.preventDefault()
+      event.preventDefault();
 
       if (event.repeat) {
-        return
+        return;
       }
 
       if (event.key === "ArrowLeft") {
-        goPrevious()
+        goPrevious();
       } else if (activeItem.status !== "unanswered") {
-        goNext()
+        goNext();
       }
 
-      return
+      return;
     }
 
     if (event.key === "Enter") {
-      const answer = activeItem.getAnswerByElement(event.target)
+      const answer = activeItem.getAnswerByElement(event.target);
 
       if (!answer) {
-        return
+        return;
       }
 
-      event.preventDefault()
+      event.preventDefault();
 
       if (!event.repeat && isAnswerFilled(answer)) {
-        confirmCurrent()
+        confirmCurrent();
       }
 
-      return
+      return;
     }
 
     if (!shortcuts || isTextEntryTarget(event.target)) {
-      return
+      return;
     }
 
-    const shortcut = getShortcutFromKey(event.key, shortcuts)
-    const answer = shortcut ? activeItem.getAnswerByShortcut(shortcut) : null
+    const shortcut = getShortcutFromKey(event.key, shortcuts);
+    const answer = shortcut ? activeItem.getAnswerByShortcut(shortcut) : null;
 
     if (!answer) {
-      return
+      return;
     }
 
-    event.preventDefault()
+    event.preventDefault();
 
     if (event.repeat) {
-      return
+      return;
     }
 
-    answer.element.focus()
+    answer.element.focus();
 
     if (answer.type === "choice") {
-      answer.element.click()
+      answer.element.click();
     }
   }
 
@@ -465,7 +430,7 @@ function useQuestionnaireRoot({
     first,
     last,
     total,
-  }
+  };
   const context = React.useMemo<QuestionnaireContextValue>(
     () => ({
       ...state,
@@ -500,14 +465,14 @@ function useQuestionnaireRoot({
       skipCurrent,
       total,
     ],
-  )
+  );
   const setRootRef = React.useCallback(
     (element: HTMLFormElement | null) => {
-      setRootElement(element)
-      composeRefs(ref)?.(element)
+      setRootElement(element);
+      composeRefs(ref)?.(element);
     },
     [ref],
-  )
+  );
 
   return {
     context,
@@ -519,7 +484,7 @@ function useQuestionnaireRoot({
       ref: setRootRef,
     },
     state,
-  }
+  };
 }
 
-export { useQuestionnaireRoot }
+export { useQuestionnaireRoot };

@@ -1,10 +1,10 @@
-import { AspectRatio } from "./index"
+import { AspectRatio } from "./index";
 
 const meta = {
   title: "Components/AspectRatio",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -12,4 +12,4 @@ export const Default = {
       <div>16:9</div>
     </AspectRatio>
   ),
-}
+};

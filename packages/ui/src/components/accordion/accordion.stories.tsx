@@ -1,15 +1,10 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "./index"
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./index";
 
 const meta = {
   title: "Components/Accordion",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -24,4 +19,4 @@ export const Default = {
       </AccordionItem>
     </Accordion>
   ),
-}
+};

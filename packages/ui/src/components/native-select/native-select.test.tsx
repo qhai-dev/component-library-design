@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { NativeSelect, NativeSelectOption } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { NativeSelect, NativeSelectOption } from "./index";
 
 describe("NativeSelect", () => {
   it("renders", () => {
@@ -8,6 +8,6 @@ describe("NativeSelect", () => {
       <NativeSelect aria-label="pick">
         <NativeSelectOption value="a">Option A</NativeSelectOption>
       </NativeSelect>,
-    )
-  })
-})
+    );
+  });
+});

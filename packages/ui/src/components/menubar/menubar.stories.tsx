@@ -1,16 +1,10 @@
-import {
-  Menubar,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarContent,
-  MenubarItem,
-} from "./index"
+import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem } from "./index";
 
 const meta = {
   title: "Components/Menubar",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -23,4 +17,4 @@ export const Default = {
       </MenubarMenu>
     </Menubar>
   ),
-}
+};

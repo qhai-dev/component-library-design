@@ -1,10 +1,10 @@
-import { DirectionProvider } from "./index"
+import { DirectionProvider } from "./index";
 
 const meta = {
   title: "Components/Direction",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -12,4 +12,4 @@ export const Default = {
       <div>dir</div>
     </DirectionProvider>
   ),
-}
+};

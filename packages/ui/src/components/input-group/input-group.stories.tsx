@@ -1,10 +1,10 @@
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./index"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "./index";
 
 const meta = {
   title: "Components/InputGroup",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,4 +13,4 @@ export const Default = {
       <InputGroupInput placeholder="username" />
     </InputGroup>
   ),
-}
+};

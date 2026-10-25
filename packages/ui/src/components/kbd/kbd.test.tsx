@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { Kbd, KbdGroup } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Kbd, KbdGroup } from "./index";
 
 describe("Kbd", () => {
   it("renders", () => {
@@ -9,6 +9,6 @@ describe("Kbd", () => {
         <Kbd>Ctrl</Kbd>
         <Kbd>K</Kbd>
       </KbdGroup>,
-    )
-  })
-})
+    );
+  });
+});

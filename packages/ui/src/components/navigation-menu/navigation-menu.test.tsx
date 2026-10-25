@@ -1,11 +1,11 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
-} from "./index"
+} from "./index";
 
 describe("NavigationMenu", () => {
   it("renders", () => {
@@ -17,6 +17,6 @@ describe("NavigationMenu", () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>,
-    )
-  })
-})
+    );
+  });
+});

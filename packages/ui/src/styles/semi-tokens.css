@@ -288,9 +288,8 @@
     rgba(var(--semi-ai-general-9-3)) 100%
   );
   font-family:
-    "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC",
-    "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+    "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   --semi-color-white: rgba(var(--semi-white), 1);
   --semi-color-black: rgba(var(--semi-black), 1);
@@ -368,8 +367,7 @@
   --semi-color-text-1: rgba(var(--semi-grey-9), 0.8);
   --semi-color-text-2: rgba(var(--semi-grey-9), 0.62);
   --semi-color-text-3: rgba(var(--semi-grey-9), 0.35);
-  --semi-shadow-elevated:
-    0 0 1px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.1);
+  --semi-shadow-elevated: 0 0 1px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.1);
   --semi-border-radius-extra-small: 3px;
   --semi-border-radius-small: 3px;
   --semi-border-radius-medium: 6px;
@@ -734,9 +732,8 @@
     rgba(var(--semi-ai-general-9-3)) 100%
   );
   font-family:
-    "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC",
-    "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+    "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   --semi-color-white: rgba(228, 231, 245, 1);
   --semi-color-black: rgba(var(--semi-black), 1);
@@ -799,8 +796,7 @@
   --semi-color-link-active: rgba(var(--semi-blue-7), 1);
   --semi-color-link-visited: rgba(var(--semi-blue-5), 1);
   --semi-color-nav-bg: rgba(35, 36, 41, 1);
-  --semi-shadow-elevated:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 14px rgba(0, 0, 0, 0.25);
+  --semi-shadow-elevated: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 14px rgba(0, 0, 0, 0.25);
   --semi-color-overlay-bg: rgba(22, 22, 26, 0.6);
   --semi-color-fill-0: rgba(var(--semi-white), 0.12);
   --semi-color-fill-1: rgba(var(--semi-white), 0.16);

@@ -1,10 +1,10 @@
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "./index"
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "./index";
 
 const meta = {
   title: "Components/HoverCard",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,4 +13,4 @@ export const Default = {
       <HoverCardContent>Content</HoverCardContent>
     </HoverCard>
   ),
-}
+};

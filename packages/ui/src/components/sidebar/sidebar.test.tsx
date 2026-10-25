@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   SidebarProvider,
   Sidebar,
@@ -13,7 +13,7 @@ import {
   SidebarMenuButton,
   SidebarTrigger,
   SidebarInset,
-} from "./index"
+} from "./index";
 
 describe("Sidebar", () => {
   it("renders", () => {
@@ -37,6 +37,6 @@ describe("Sidebar", () => {
         <SidebarTrigger />
         <SidebarInset>Content</SidebarInset>
       </SidebarProvider>,
-    )
-  })
-})
+    );
+  });
+});

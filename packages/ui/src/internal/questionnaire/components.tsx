@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
-import { mergeProps, useRender } from "../use-render"
+import { mergeProps, useRender } from "../use-render";
 import {
   QuestionnaireChoiceContext,
   QuestionnaireContext,
@@ -8,7 +8,7 @@ import {
   useQuestionnaireChoiceContext,
   useQuestionnaireContext,
   useQuestionnaireItemContext,
-} from "./context"
+} from "./context";
 import type {
   QuestionnaireChoiceInputProps,
   QuestionnaireChoiceLabelProps,
@@ -27,11 +27,11 @@ import type {
   QuestionnaireSkipProps,
   QuestionnaireSubmitProps,
   QuestionnaireTitleProps,
-} from "./types"
-import { useQuestionnaireChoice } from "./use-questionnaire-choice"
-import { useQuestionnaireInput } from "./use-questionnaire-input"
-import { useQuestionnaireItem } from "./use-questionnaire-item"
-import { useQuestionnaireRoot } from "./use-questionnaire-root"
+} from "./types";
+import { useQuestionnaireChoice } from "./use-questionnaire-choice";
+import { useQuestionnaireInput } from "./use-questionnaire-input";
+import { useQuestionnaireItem } from "./use-questionnaire-item";
+import { useQuestionnaireRoot } from "./use-questionnaire-root";
 
 function QuestionnaireRoot({
   defaultItem,
@@ -55,29 +55,19 @@ function QuestionnaireRoot({
     onSubmit,
     ref,
     shortcuts,
-  })
+  });
   const element = useRender({
     defaultTagName: "form",
     props: mergeProps<"form">({ ...rootProps, noValidate }, props),
     state,
-  })
+  });
 
-  return (
-    <QuestionnaireContext.Provider value={context}>
-      {element}
-    </QuestionnaireContext.Provider>
-  )
+  return <QuestionnaireContext.Provider value={context}>{element}</QuestionnaireContext.Provider>;
 }
 
-function QuestionnaireProgress({
-  children,
-  render,
-  ...props
-}: QuestionnaireProgressProps) {
-  const { current, first, last, total } = useQuestionnaireContext(
-    "Questionnaire.Progress",
-  )
-  const label = total ? `Question ${current} of ${total}` : undefined
+function QuestionnaireProgress({ children, render, ...props }: QuestionnaireProgressProps) {
+  const { current, first, last, total } = useQuestionnaireContext("Questionnaire.Progress");
+  const label = total ? `Question ${current} of ${total}` : undefined;
 
   return useRender({
     defaultTagName: "div",
@@ -96,7 +86,7 @@ function QuestionnaireProgress({
     ),
     render,
     state: { current, first, last, total },
-  })
+  });
 }
 
 function QuestionnaireItem({
@@ -122,7 +112,7 @@ function QuestionnaireItem({
     onStatusChange,
     ref,
     required,
-  })
+  });
   const element = useRender({
     defaultTagName: "fieldset",
     props: mergeProps<"fieldset">({ ...itemProps, children }, props),
@@ -132,57 +122,49 @@ function QuestionnaireItem({
         "data-active": isActive ? "" : undefined,
       }),
     },
-  })
+  });
 
   return (
-    <QuestionnaireItemContext.Provider value={context}>
-      {element}
-    </QuestionnaireItemContext.Provider>
-  )
+    <QuestionnaireItemContext.Provider value={context}>{element}</QuestionnaireItemContext.Provider>
+  );
 }
 
 function QuestionnaireTitle({ render, ...props }: QuestionnaireTitleProps) {
-  useQuestionnaireItemContext("Questionnaire.Title")
+  useQuestionnaireItemContext("Questionnaire.Title");
 
   return useRender({
     defaultTagName: "legend",
     props,
     render,
-  })
+  });
 }
 
-function QuestionnaireDescription({
-  id,
-  render,
-  ...props
-}: QuestionnaireDescriptionProps) {
-  const { registerDescription } = useQuestionnaireItemContext(
-    "Questionnaire.Description",
-  )
-  const generatedId = React.useId()
-  const descriptionId = id ?? generatedId
+function QuestionnaireDescription({ id, render, ...props }: QuestionnaireDescriptionProps) {
+  const { registerDescription } = useQuestionnaireItemContext("Questionnaire.Description");
+  const generatedId = React.useId();
+  const descriptionId = id ?? generatedId;
 
   React.useLayoutEffect(
     () => registerDescription(descriptionId),
     [descriptionId, registerDescription],
-  )
+  );
 
   return useRender({
     defaultTagName: "p",
     props: mergeProps<"p">({ id: descriptionId }, props),
     render,
-  })
+  });
 }
 
 function QuestionnaireChoices({ render, ...props }: QuestionnaireChoicesProps) {
-  const { shortcuts } = useQuestionnaireItemContext("Questionnaire.Choices")
+  const { shortcuts } = useQuestionnaireItemContext("Questionnaire.Choices");
 
   return useRender({
     defaultTagName: "div",
     props,
     render,
     state: { shortcuts },
-  })
+  });
 }
 
 function QuestionnaireChoice({
@@ -201,7 +183,7 @@ function QuestionnaireChoice({
     disabled,
     onChange,
     value,
-  })
+  });
   const element = useRender({
     defaultTagName: "label",
     props: mergeProps<"label">({ children }, props),
@@ -213,22 +195,17 @@ function QuestionnaireChoice({
         "data-unchecked": isChecked ? undefined : "",
       }),
     },
-  })
+  });
 
   return (
     <QuestionnaireChoiceContext.Provider value={{ inputProps, state }}>
       {element}
     </QuestionnaireChoiceContext.Provider>
-  )
+  );
 }
 
-function QuestionnaireChoiceInput({
-  render,
-  ...props
-}: QuestionnaireChoiceInputProps) {
-  const { inputProps, state } = useQuestionnaireChoiceContext(
-    "Questionnaire.ChoiceInput",
-  )
+function QuestionnaireChoiceInput({ render, ...props }: QuestionnaireChoiceInputProps) {
+  const { inputProps, state } = useQuestionnaireChoiceContext("Questionnaire.ChoiceInput");
 
   return useRender({
     defaultTagName: "input",
@@ -241,20 +218,17 @@ function QuestionnaireChoiceInput({
         "data-unchecked": isChecked ? undefined : "",
       }),
     },
-  })
+  });
 }
 
-function QuestionnaireChoiceLabel({
-  render,
-  ...props
-}: QuestionnaireChoiceLabelProps) {
-  useQuestionnaireChoiceContext("Questionnaire.ChoiceLabel")
+function QuestionnaireChoiceLabel({ render, ...props }: QuestionnaireChoiceLabelProps) {
+  useQuestionnaireChoiceContext("Questionnaire.ChoiceLabel");
 
   return useRender({
     defaultTagName: "span",
     props,
     render,
-  })
+  });
 }
 
 function QuestionnaireChoiceShortcut({
@@ -262,10 +236,8 @@ function QuestionnaireChoiceShortcut({
   render,
   ...props
 }: QuestionnaireChoiceShortcutProps) {
-  const { state } = useQuestionnaireChoiceContext(
-    "Questionnaire.ChoiceShortcut",
-  )
-  const shortcutState = { shortcut: state.shortcut }
+  const { state } = useQuestionnaireChoiceContext("Questionnaire.ChoiceShortcut");
+  const shortcutState = { shortcut: state.shortcut };
 
   return useRender({
     defaultTagName: "span",
@@ -279,7 +251,7 @@ function QuestionnaireChoiceShortcut({
     ),
     render,
     state: shortcutState,
-  })
+  });
 }
 
 function QuestionnaireInput({
@@ -299,7 +271,7 @@ function QuestionnaireInput({
     ref,
     type,
     value,
-  })
+  });
 
   return useRender({
     defaultTagName: "input",
@@ -312,22 +284,15 @@ function QuestionnaireInput({
         "data-filled": isFilled ? "" : undefined,
       }),
     },
-  })
+  });
 }
 
-function QuestionnaireError({
-  children,
-  id,
-  render,
-  ...props
-}: QuestionnaireErrorProps) {
-  const { invalid, registerError, required } = useQuestionnaireItemContext(
-    "Questionnaire.Error",
-  )
-  const generatedId = React.useId()
-  const errorId = id ?? generatedId
+function QuestionnaireError({ children, id, render, ...props }: QuestionnaireErrorProps) {
+  const { invalid, registerError, required } = useQuestionnaireItemContext("Questionnaire.Error");
+  const generatedId = React.useId();
+  const errorId = id ?? generatedId;
 
-  React.useLayoutEffect(() => registerError(errorId), [errorId, registerError])
+  React.useLayoutEffect(() => registerError(errorId), [errorId, registerError]);
 
   return useRender({
     defaultTagName: "p",
@@ -335,9 +300,7 @@ function QuestionnaireError({
       {
         children:
           children ??
-          (required
-            ? "Choose an answer to continue."
-            : "Choose an answer or skip this question."),
+          (required ? "Choose an answer to continue." : "Choose an answer or skip this question."),
         hidden: !invalid,
         id: errorId,
         role: invalid ? "alert" : undefined,
@@ -346,7 +309,7 @@ function QuestionnaireError({
     ),
     render,
     state: { invalid },
-  })
+  });
 }
 
 function QuestionnairePrevious({
@@ -358,14 +321,14 @@ function QuestionnairePrevious({
   type = "button",
   ...props
 }: QuestionnairePreviousProps) {
-  const context = useQuestionnaireContext("Questionnaire.Previous")
-  const visible = context.total > 1 && !context.first
+  const context = useQuestionnaireContext("Questionnaire.Previous");
+  const visible = context.total > 1 && !context.first;
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    onClick?.(event)
+    onClick?.(event);
 
     if (!event.defaultPrevented) {
-      context.goPrevious()
+      context.goPrevious();
     }
   }
 
@@ -379,7 +342,7 @@ function QuestionnairePrevious({
     tabIndex,
     type,
     visible,
-  })
+  });
 }
 
 function QuestionnaireSkip({
@@ -391,14 +354,14 @@ function QuestionnaireSkip({
   type = "button",
   ...props
 }: QuestionnaireSkipProps) {
-  const context = useQuestionnaireContext("Questionnaire.Skip")
-  const visible = context.activeItemRequired === false
+  const context = useQuestionnaireContext("Questionnaire.Skip");
+  const visible = context.activeItemRequired === false;
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    onClick?.(event)
+    onClick?.(event);
 
     if (!event.defaultPrevented) {
-      context.skipCurrent()
+      context.skipCurrent();
     }
   }
 
@@ -412,7 +375,7 @@ function QuestionnaireSkip({
     tabIndex,
     type,
     visible,
-  })
+  });
 }
 
 function QuestionnaireNext({
@@ -424,14 +387,14 @@ function QuestionnaireNext({
   type = "button",
   ...props
 }: QuestionnaireNextProps) {
-  const context = useQuestionnaireContext("Questionnaire.Next")
-  const visible = context.total > 1 && !context.last
+  const context = useQuestionnaireContext("Questionnaire.Next");
+  const visible = context.total > 1 && !context.last;
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    onClick?.(event)
+    onClick?.(event);
 
     if (!event.defaultPrevented) {
-      context.goNext()
+      context.goNext();
     }
   }
 
@@ -446,7 +409,7 @@ function QuestionnaireNext({
     tabIndex,
     type,
     visible,
-  })
+  });
 }
 
 function QuestionnaireSubmit({
@@ -457,8 +420,8 @@ function QuestionnaireSubmit({
   type = "submit",
   ...props
 }: QuestionnaireSubmitProps) {
-  const context = useQuestionnaireContext("Questionnaire.Submit")
-  const visible = context.total > 0 && context.last
+  const context = useQuestionnaireContext("Questionnaire.Submit");
+  const visible = context.total > 0 && context.last;
 
   return useRenderNavigationButton({
     children: children ?? "Submit",
@@ -470,7 +433,7 @@ function QuestionnaireSubmit({
     tabIndex,
     type,
     visible,
-  })
+  });
 }
 
 function useRenderNavigationButton({
@@ -485,24 +448,24 @@ function useRenderNavigationButton({
   type,
   visible,
 }: {
-  children: React.ReactNode
-  disabled: boolean
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
-  props: React.ComponentPropsWithRef<"button">
-  render: QuestionnaireNextProps["render"]
-  shortcut?: "Enter"
-  status: QuestionnaireNavigationState["status"]
-  tabIndex: number | undefined
-  type: "button" | "reset" | "submit"
-  visible: boolean
+  children: React.ReactNode;
+  disabled: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  props: React.ComponentPropsWithRef<"button">;
+  render: QuestionnaireNextProps["render"];
+  shortcut?: "Enter";
+  status: QuestionnaireNavigationState["status"];
+  tabIndex: number | undefined;
+  type: "button" | "reset" | "submit";
+  visible: boolean;
 }) {
-  const activeShortcut = visible && !disabled ? (shortcut ?? null) : null
+  const activeShortcut = visible && !disabled ? (shortcut ?? null) : null;
   const state: QuestionnaireNavigationState = {
     disabled,
     shortcut: activeShortcut,
     status,
     visible,
-  }
+  };
 
   return useRender({
     defaultTagName: "button",
@@ -528,7 +491,7 @@ function useRenderNavigationButton({
         "data-visible": isVisible ? "" : undefined,
       }),
     },
-  })
+  });
 }
 
 export {
@@ -548,4 +511,4 @@ export {
   QuestionnaireSkip,
   QuestionnaireSubmit,
   QuestionnaireTitle,
-}
+};

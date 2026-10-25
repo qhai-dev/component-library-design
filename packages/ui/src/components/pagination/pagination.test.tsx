@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   Pagination,
   PaginationContent,
@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationPrevious,
   PaginationNext,
-} from "./index"
+} from "./index";
 
 describe("Pagination", () => {
   it("renders", () => {
@@ -27,6 +27,6 @@ describe("Pagination", () => {
           </PaginationItem>
         </PaginationContent>
       </Pagination>,
-    )
-  })
-})
+    );
+  });
+});

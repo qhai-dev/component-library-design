@@ -1,10 +1,10 @@
-import { Trace, TraceLine, TraceTitle, TraceDescription } from "./index"
+import { Trace, TraceLine, TraceTitle, TraceDescription } from "./index";
 
 const meta = {
   title: "Components/Trace",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -15,4 +15,4 @@ export const Default = {
       </TraceLine>
     </Trace>
   ),
-}
+};

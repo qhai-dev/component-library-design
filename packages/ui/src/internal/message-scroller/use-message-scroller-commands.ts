@@ -1,17 +1,17 @@
-import * as React from "react"
+import * as React from "react";
 
 import {
   getElementScrollTop,
   getElementViewportTop,
   getMaxScrollTop,
   getTailSpacerHeight,
-} from "./geometry"
-import { AUTOSCROLLING_CLEAR_DELAY, SCROLL_POSITION_EPSILON } from "./types"
-import type { MessageScrollerScrollOptions } from "./types"
+} from "./geometry";
+import { AUTOSCROLLING_CLEAR_DELAY, SCROLL_POSITION_EPSILON } from "./types";
+import type { MessageScrollerScrollOptions } from "./types";
 import {
   markDefaultScrollPositionApplied,
   type MessageScrollerRefs,
-} from "./use-message-scroller-refs"
+} from "./use-message-scroller-refs";
 
 // Imperative scroll primitives, split from the controller so the move mechanics
 // live apart from the policy that decides when to run them. Each command resolves
@@ -22,10 +22,10 @@ function useMessageScrollerCommands({
   scheduleStateCommit,
   scheduleVisibilitySync,
 }: {
-  refs: MessageScrollerRefs
-  commitScrollState: () => void
-  scheduleStateCommit: () => void
-  scheduleVisibilitySync: () => void
+  refs: MessageScrollerRefs;
+  commitScrollState: () => void;
+  scheduleStateCommit: () => void;
+  scheduleVisibilitySync: () => void;
 }) {
   const {
     streamingTurnRef,
@@ -44,49 +44,49 @@ function useMessageScrollerCommands({
     spacerHeightRef,
     spacerRef,
     viewportRef,
-  } = refs
+  } = refs;
 
   const setAutoScrolling = React.useCallback(
     (autoscrolling: boolean) => {
       if (autoscrollingTimeoutRef.current !== null) {
-        window.clearTimeout(autoscrollingTimeoutRef.current)
-        autoscrollingTimeoutRef.current = null
+        window.clearTimeout(autoscrollingTimeoutRef.current);
+        autoscrollingTimeoutRef.current = null;
       }
 
       if (autoscrollingRef.current !== autoscrolling) {
-        autoscrollingRef.current = autoscrolling
-        commitScrollState()
+        autoscrollingRef.current = autoscrolling;
+        commitScrollState();
       }
 
       if (autoscrolling) {
         autoscrollingTimeoutRef.current = window.setTimeout(() => {
-          autoscrollingTimeoutRef.current = null
-          autoscrollingRef.current = false
-          commitScrollState()
-        }, AUTOSCROLLING_CLEAR_DELAY)
+          autoscrollingTimeoutRef.current = null;
+          autoscrollingRef.current = false;
+          commitScrollState();
+        }, AUTOSCROLLING_CLEAR_DELAY);
       }
     },
     [commitScrollState],
-  )
+  );
 
   const setTailSpacerHeight = React.useCallback((height: number) => {
-    const spacer = spacerRef.current
+    const spacer = spacerRef.current;
 
     if (!spacer) {
-      return
+      return;
     }
 
-    const nextHeight = Math.max(0, Math.ceil(height))
+    const nextHeight = Math.max(0, Math.ceil(height));
 
     if (spacerHeightRef.current === nextHeight) {
-      return
+      return;
     }
 
-    spacerHeightRef.current = nextHeight
-    spacer.hidden = nextHeight === 0
-    spacer.style.height = `${nextHeight}px`
-    spacer.style.marginTop = nextHeight > 0 ? `${-spacerGapRef.current}px` : ""
-  }, [])
+    spacerHeightRef.current = nextHeight;
+    spacer.hidden = nextHeight === 0;
+    spacer.style.height = `${nextHeight}px`;
+    spacer.style.marginTop = nextHeight > 0 ? `${-spacerGapRef.current}px` : "";
+  }, []);
 
   const scrollToPosition = React.useCallback(
     (
@@ -95,79 +95,75 @@ function useMessageScrollerCommands({
         behavior = "auto",
         autoscrolling = false,
       }: {
-        behavior?: ScrollBehavior
-        autoscrolling?: boolean
+        behavior?: ScrollBehavior;
+        autoscrolling?: boolean;
       } = {},
     ) => {
-      const viewport = viewportRef.current
+      const viewport = viewportRef.current;
 
       if (!viewport) {
-        return
+        return;
       }
 
-      const nextScrollTop = Math.max(0, scrollTop)
+      const nextScrollTop = Math.max(0, scrollTop);
 
-      if (
-        Math.abs(viewport.scrollTop - nextScrollTop) <= SCROLL_POSITION_EPSILON
-      ) {
-        viewport.scrollTop = nextScrollTop
-        commitScrollState()
-        return
+      if (Math.abs(viewport.scrollTop - nextScrollTop) <= SCROLL_POSITION_EPSILON) {
+        viewport.scrollTop = nextScrollTop;
+        commitScrollState();
+        return;
       }
 
       if (autoscrolling) {
-        setAutoScrolling(true)
+        setAutoScrolling(true);
       }
 
       viewport.scrollTo({
         top: nextScrollTop,
         behavior,
-      })
-      scheduleStateCommit()
+      });
+      scheduleStateCommit();
     },
     [commitScrollState, scheduleStateCommit, setAutoScrolling],
-  )
+  );
 
   const scrollToStart = React.useCallback(
     ({ behavior = "auto" }: MessageScrollerScrollOptions = {}) => {
       if (!viewportRef.current) {
-        return false
+        return false;
       }
 
-      setTailSpacerHeight(0)
-      streamingTurnRef.current = null
-      modeRef.current = "free-scrolling"
-      scrollToPosition(0, { behavior })
-      scheduleVisibilitySync()
+      setTailSpacerHeight(0);
+      streamingTurnRef.current = null;
+      modeRef.current = "free-scrolling";
+      scrollToPosition(0, { behavior });
+      scheduleVisibilitySync();
 
-      return true
+      return true;
     },
     [scheduleVisibilitySync, scrollToPosition, setTailSpacerHeight],
-  )
+  );
 
   const scrollToEnd = React.useCallback(
     ({ behavior = "auto" }: MessageScrollerScrollOptions = {}) => {
-      const viewport = viewportRef.current
+      const viewport = viewportRef.current;
 
       if (!viewport) {
-        return false
+        return false;
       }
 
-      setTailSpacerHeight(0)
-      streamingTurnRef.current = null
-      modeRef.current = autoScrollRef.current
-        ? "following-bottom"
-        : "free-scrolling"
+      setTailSpacerHeight(0);
+      streamingTurnRef.current = null;
+      modeRef.current = autoScrollRef.current ? "following-bottom" : "free-scrolling";
       scrollToPosition(getMaxScrollTop(viewport), {
         autoscrolling: true,
         behavior,
-      })
-      scheduleVisibilitySync()
+      });
+      scheduleVisibilitySync();
 
-      return true
+      return true;
     },
     [scheduleVisibilitySync, scrollToPosition, setTailSpacerHeight],
-  )
+  );
 
   const scrollToElement = React.useCallback(
     (
@@ -180,14 +176,14 @@ function useMessageScrollerCommands({
       {
         keepPreviousPeek = false,
       }: {
-        keepPreviousPeek?: boolean
+        keepPreviousPeek?: boolean;
       } = {},
     ) => {
-      const content = contentRef.current
-      const viewport = viewportRef.current
+      const content = contentRef.current;
+      const viewport = viewportRef.current;
 
       if (!content || !viewport || !content.contains(element)) {
-        return false
+        return false;
       }
 
       const scrollTop = getElementScrollTop({
@@ -198,16 +194,16 @@ function useMessageScrollerCommands({
           : scrollMargin,
         spacer: spacerRef.current,
         viewport,
-      })
+      });
 
       const nextSpacerHeight = getTailSpacerHeight({
         content,
         scrollTop,
         spacer: spacerRef.current,
         viewport,
-      })
+      });
 
-      setTailSpacerHeight(nextSpacerHeight)
+      setTailSpacerHeight(nextSpacerHeight);
       // Seed the prepend anchor with the jump target so a prepend that lands
       // before this scroll settles still preserves the jumped-to row; once it
       // settles, syncAfterScroll's capturePrependAnchor re-captures it from the
@@ -215,40 +211,30 @@ function useMessageScrollerCommands({
       prependRestoreRef.current = {
         element,
         viewportTop: getElementViewportTop(element, viewport),
-      }
+      };
 
-      modeRef.current = keepPreviousPeek
-        ? "anchored-to-message"
-        : "settling-jump"
-      streamingTurnRef.current = keepPreviousPeek ? element : null
+      modeRef.current = keepPreviousPeek ? "anchored-to-message" : "settling-jump";
+      streamingTurnRef.current = keepPreviousPeek ? element : null;
 
-      scrollToPosition(scrollTop, { behavior })
-      scheduleVisibilitySync()
+      scrollToPosition(scrollTop, { behavior });
+      scheduleVisibilitySync();
 
-      return true
+      return true;
     },
     [scheduleVisibilitySync, scrollToPosition, setTailSpacerHeight],
-  )
+  );
 
   const reanchorToAnchoredMessage = React.useCallback(() => {
-    const element = streamingTurnRef.current
+    const element = streamingTurnRef.current;
 
-    if (
-      !element ||
-      !element.isConnected ||
-      modeRef.current !== "anchored-to-message"
-    ) {
-      return false
+    if (!element || !element.isConnected || modeRef.current !== "anchored-to-message") {
+      return false;
     }
 
     // Re-run the placement so the tail spacer is recomputed for the new content
     // height and the turn is held at the reading line.
-    return scrollToElement(
-      element,
-      { align: "start" },
-      { keepPreviousPeek: true },
-    )
-  }, [scrollToElement])
+    return scrollToElement(element, { align: "start" }, { keepPreviousPeek: true });
+  }, [scrollToElement]);
 
   // The target row may not be mounted yet (e.g. an async-loaded transcript).
   // When it is missing the request is queued in pendingScrollToMessageRef and
@@ -257,63 +243,63 @@ function useMessageScrollerCommands({
   // defaultScrollPosition does not override it.
   const scrollToMessage = React.useCallback(
     (messageId: string, options?: MessageScrollerScrollOptions) => {
-      const element = messageElementsRef.current.get(messageId)
+      const element = messageElementsRef.current.get(messageId);
 
       if (!element) {
         if (itemCountRef.current === 0) {
           pendingScrollToMessageRef.current = {
             messageId,
             options,
-          }
-          markDefaultScrollPositionApplied(refs)
+          };
+          markDefaultScrollPositionApplied(refs);
 
-          return true
+          return true;
         }
 
-        return false
+        return false;
       }
 
-      markDefaultScrollPositionApplied(refs)
+      markDefaultScrollPositionApplied(refs);
 
       if (scrollToElement(element, options)) {
-        pendingScrollToMessageRef.current = null
-        return true
+        pendingScrollToMessageRef.current = null;
+        return true;
       }
 
       pendingScrollToMessageRef.current = {
         messageId,
         options,
-      }
+      };
 
-      return true
+      return true;
     },
     [scrollToElement],
-  )
+  );
 
   const flushPendingScrollToMessage = React.useCallback(() => {
-    const pending = pendingScrollToMessageRef.current
+    const pending = pendingScrollToMessageRef.current;
 
     if (!pending) {
-      return false
+      return false;
     }
 
-    const element = messageElementsRef.current.get(pending.messageId)
+    const element = messageElementsRef.current.get(pending.messageId);
 
     if (!element) {
-      return false
+      return false;
     }
 
-    const handled = scrollToElement(element, pending.options)
+    const handled = scrollToElement(element, pending.options);
 
     if (!handled) {
-      return false
+      return false;
     }
 
-    pendingScrollToMessageRef.current = null
-    markDefaultScrollPositionApplied(refs)
+    pendingScrollToMessageRef.current = null;
+    markDefaultScrollPositionApplied(refs);
 
-    return true
-  }, [scrollToElement])
+    return true;
+  }, [scrollToElement]);
 
   return {
     flushPendingScrollToMessage,
@@ -322,7 +308,7 @@ function useMessageScrollerCommands({
     scrollToEnd,
     scrollToMessage,
     scrollToStart,
-  }
+  };
 }
 
-export { useMessageScrollerCommands }
+export { useMessageScrollerCommands };

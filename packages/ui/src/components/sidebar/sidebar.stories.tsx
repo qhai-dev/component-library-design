@@ -11,13 +11,13 @@ import {
   SidebarMenuButton,
   SidebarTrigger,
   SidebarInset,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Sidebar",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -41,4 +41,4 @@ export const Default = {
       <SidebarInset>Content</SidebarInset>
     </SidebarProvider>
   ),
-}
+};

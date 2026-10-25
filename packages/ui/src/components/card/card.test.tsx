@@ -1,13 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./index";
 
 describe("Card", () => {
   it("renders", () => {
@@ -20,6 +13,6 @@ describe("Card", () => {
         <CardContent>Body</CardContent>
         <CardFooter>Footer</CardFooter>
       </Card>,
-    )
-  })
-})
+    );
+  });
+});

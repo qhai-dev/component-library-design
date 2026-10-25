@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { Trace, TraceLine, TraceTitle, TraceDescription } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Trace, TraceLine, TraceTitle, TraceDescription } from "./index";
 
 describe("Trace", () => {
   it("renders", () => {
@@ -11,6 +11,6 @@ describe("Trace", () => {
           <TraceDescription>Something happened</TraceDescription>
         </TraceLine>
       </Trace>,
-    )
-  })
-})
+    );
+  });
+});

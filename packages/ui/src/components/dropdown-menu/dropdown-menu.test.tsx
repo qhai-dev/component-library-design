@@ -1,12 +1,7 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
-import userEvent from "@testing-library/user-event"
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "./index"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import userEvent from "@testing-library/user-event";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./index";
 
 describe("DropdownMenu", () => {
   it("renders", () => {
@@ -17,11 +12,11 @@ describe("DropdownMenu", () => {
           <DropdownMenuItem>Item</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>,
-    )
-  })
+    );
+  });
 
   it("opens the menu", async () => {
-    const user = userEvent.setup()
+    const user = userEvent.setup();
     render(
       <DropdownMenu>
         <DropdownMenuTrigger>Menu</DropdownMenuTrigger>
@@ -29,8 +24,8 @@ describe("DropdownMenu", () => {
           <DropdownMenuItem>Semi item</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>,
-    )
-    await user.click(screen.getByRole("button", { name: "Menu" }))
-    expect(await screen.findByText("Semi item")).toBeInTheDocument()
-  })
-})
+    );
+    await user.click(screen.getByRole("button", { name: "Menu" }));
+    expect(await screen.findByText("Semi item")).toBeInTheDocument();
+  });
+});

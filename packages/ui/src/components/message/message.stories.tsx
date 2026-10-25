@@ -1,10 +1,10 @@
-import { MessageGroup, Message, MessageContent } from "./index"
+import { MessageGroup, Message, MessageContent } from "./index";
 
 const meta = {
   title: "Components/Message",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -14,4 +14,4 @@ export const Default = {
       </Message>
     </MessageGroup>
   ),
-}
+};

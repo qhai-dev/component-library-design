@@ -1,18 +1,14 @@
-import type { StorybookConfig } from "@storybook/react-vite"
+import type { StorybookConfig } from "@storybook/react-vite";
 
 const config: StorybookConfig = {
   framework: "@storybook/react-vite",
   stories: ["../src/**/*.stories.@(ts|tsx)"],
-  addons: [
-    "@storybook/addon-docs",
-    "@storybook/addon-themes",
-    "@storybook/addon-a11y",
-  ],
+  addons: ["@storybook/addon-docs", "@storybook/addon-themes", "@storybook/addon-a11y"],
   viteFinal: async (config) => {
-    const tailwindcss = (await import("@tailwindcss/vite")).default
-    config.plugins = [...(config.plugins || []), tailwindcss()]
-    return config
+    const tailwindcss = (await import("@tailwindcss/vite")).default;
+    config.plugins = [...(config.plugins || []), tailwindcss()];
+    return config;
   },
-}
+};
 
-export default config
+export default config;

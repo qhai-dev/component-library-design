@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { Item, ItemContent, ItemTitle, ItemDescription } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { Item, ItemContent, ItemTitle, ItemDescription } from "./index";
 
 describe("Item", () => {
   it("renders", () => {
@@ -11,6 +11,6 @@ describe("Item", () => {
           <ItemDescription>Description</ItemDescription>
         </ItemContent>
       </Item>,
-    )
-  })
-})
+    );
+  });
+});

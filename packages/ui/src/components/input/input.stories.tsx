@@ -1,14 +1,14 @@
-import { Input } from "./index"
+import { Input } from "./index";
 
 const meta = {
   title: "Components/Input",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => <Input placeholder="Type here" />,
-}
+};
 
 export const States = {
   render: () => (
@@ -18,4 +18,4 @@ export const States = {
       <Input placeholder="Invalid" aria-invalid />
     </div>
   ),
-}
+};

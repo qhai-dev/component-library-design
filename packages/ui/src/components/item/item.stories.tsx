@@ -1,10 +1,10 @@
-import { Item, ItemContent, ItemTitle, ItemDescription } from "./index"
+import { Item, ItemContent, ItemTitle, ItemDescription } from "./index";
 
 const meta = {
   title: "Components/Item",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -15,4 +15,4 @@ export const Default = {
       </ItemContent>
     </Item>
   ),
-}
+};

@@ -1,16 +1,10 @@
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "./index"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./index";
 
 const meta = {
   title: "Components/Select",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -23,4 +17,4 @@ export const Default = {
       </SelectContent>
     </Select>
   ),
-}
+};

@@ -5,13 +5,13 @@ import {
   SheetHeader,
   SheetTitle,
   SheetDescription,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Sheet",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -25,4 +25,4 @@ export const Default = {
       </SheetContent>
     </Sheet>
   ),
-}
+};

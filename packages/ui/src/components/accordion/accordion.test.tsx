@@ -1,11 +1,6 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "./index"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./index";
 
 describe("Accordion", () => {
   it("renders", () => {
@@ -16,8 +11,8 @@ describe("Accordion", () => {
           <AccordionContent>Content</AccordionContent>
         </AccordionItem>
       </Accordion>,
-    )
-  })
+    );
+  });
 
   it("shows default open content", () => {
     render(
@@ -27,7 +22,7 @@ describe("Accordion", () => {
           <AccordionContent>Revealed</AccordionContent>
         </AccordionItem>
       </Accordion>,
-    )
-    expect(screen.getByText("Revealed")).toBeInTheDocument()
-  })
-})
+    );
+    expect(screen.getByText("Revealed")).toBeInTheDocument();
+  });
+});

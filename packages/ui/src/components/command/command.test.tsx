@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   Command,
   CommandInput,
@@ -7,7 +7,7 @@ import {
   CommandItem,
   CommandGroup,
   CommandSeparator,
-} from "./index"
+} from "./index";
 
 describe("Command", () => {
   it("renders", () => {
@@ -21,6 +21,6 @@ describe("Command", () => {
           <CommandSeparator />
         </CommandList>
       </Command>,
-    )
-  })
-})
+    );
+  });
+});

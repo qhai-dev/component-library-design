@@ -1,14 +1,14 @@
-import * as React from "react"
+import * as React from "react";
 
-import { composeRefs } from "../use-render"
-import { useQuestionnaireItemContext } from "./context"
-import type { QuestionnaireInputProps, QuestionnaireInputState } from "./types"
-import { getAnswerKeyShortcuts, hasInputValue } from "./utils"
+import { composeRefs } from "../use-render";
+import { useQuestionnaireItemContext } from "./context";
+import type { QuestionnaireInputProps, QuestionnaireInputState } from "./types";
+import { getAnswerKeyShortcuts, hasInputValue } from "./utils";
 
 type UseQuestionnaireInputParameters = Pick<
   QuestionnaireInputProps,
   "defaultValue" | "disabled" | "onChange" | "ref" | "type" | "value"
->
+>;
 
 function useQuestionnaireInput({
   defaultValue,
@@ -29,33 +29,32 @@ function useQuestionnaireInput({
     setAnswerDefault,
     setAnswerSelectionFromInteraction,
     syncControlledAnswerSelection,
-  } = useQuestionnaireItemContext("Questionnaire.Input")
-  const answerId = React.useId()
-  const inputRef = React.useRef<HTMLInputElement | null>(null)
-  const initialDefaultFilledRef = React.useRef(hasInputValue(defaultValue))
-  const controlled = controlledValue !== undefined
-  const defaultFilled = hasInputValue(defaultValue)
-  const controlledFilled = hasInputValue(controlledValue)
-  const [uncontrolledFilled, setUncontrolledFilled] =
-    React.useState(defaultFilled)
-  const disabled = itemDisabled || inputDisabled
-  const filled = controlled ? controlledFilled : uncontrolledFilled
-  const selected = selectedAnswerIds.includes(answerId)
+  } = useQuestionnaireItemContext("Questionnaire.Input");
+  const answerId = React.useId();
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const initialDefaultFilledRef = React.useRef(hasInputValue(defaultValue));
+  const controlled = controlledValue !== undefined;
+  const defaultFilled = hasInputValue(defaultValue);
+  const controlledFilled = hasInputValue(controlledValue);
+  const [uncontrolledFilled, setUncontrolledFilled] = React.useState(defaultFilled);
+  const disabled = itemDisabled || inputDisabled;
+  const filled = controlled ? controlledFilled : uncontrolledFilled;
+  const selected = selectedAnswerIds.includes(answerId);
 
   React.useLayoutEffect(
     () => registerAnswerSelection(answerId, initialDefaultFilledRef.current),
     [answerId, registerAnswerSelection],
-  )
+  );
   React.useLayoutEffect(
     () => setAnswerDefault(answerId, defaultFilled),
     [defaultFilled, answerId, setAnswerDefault],
-  )
+  );
 
   React.useLayoutEffect(() => {
-    const input = inputRef.current
+    const input = inputRef.current;
 
     if (!input) {
-      return
+      return;
     }
 
     return registerAnswerControl({
@@ -63,17 +62,17 @@ function useQuestionnaireInput({
       element: input,
       id: answerId,
       type: "input",
-    })
-  }, [disabled, answerId, registerAnswerControl])
+    });
+  }, [disabled, answerId, registerAnswerControl]);
 
   React.useLayoutEffect(() => {
     if (controlled) {
-      syncControlledAnswerSelection(answerId, controlledFilled)
-      return
+      syncControlledAnswerSelection(answerId, controlledFilled);
+      return;
     }
 
     if (resetVersion > 0) {
-      setUncontrolledFilled(defaultFilled)
+      setUncontrolledFilled(defaultFilled);
     }
   }, [
     controlled,
@@ -83,55 +82,52 @@ function useQuestionnaireInput({
     answerId,
     resetVersion,
     syncControlledAnswerSelection,
-  ])
+  ]);
 
   React.useLayoutEffect(() => {
-    const input = inputRef.current
+    const input = inputRef.current;
 
     if (!input || !controlled) {
-      return
+      return;
     }
 
-    input.defaultValue = String(controlledValue)
-  }, [controlled, controlledValue])
+    input.defaultValue = String(controlledValue);
+  }, [controlled, controlledValue]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    onChange?.(event)
+    onChange?.(event);
 
     if (event.defaultPrevented) {
-      return
+      return;
     }
 
-    const nextFilled = event.target.value.trim().length > 0
+    const nextFilled = event.target.value.trim().length > 0;
 
     if (controlled) {
-      return
+      return;
     }
 
-    setUncontrolledFilled(nextFilled)
-    setAnswerSelectionFromInteraction(answerId, nextFilled)
+    setUncontrolledFilled(nextFilled);
+    setAnswerSelectionFromInteraction(answerId, nextFilled);
   }
 
   const state: QuestionnaireInputState = {
     disabled,
     filled,
     invalid,
-  }
+  };
   const setInputRef = React.useCallback(
     (element: HTMLInputElement | null) => {
-      inputRef.current = element
-      composeRefs(ref)?.(element)
+      inputRef.current = element;
+      composeRefs(ref)?.(element);
     },
     [ref],
-  )
+  );
 
   return {
     inputProps: {
       "aria-invalid": invalid || undefined,
-      "aria-keyshortcuts": getAnswerKeyShortcuts(
-        null,
-        !disabled && filled && selected,
-      ),
+      "aria-keyshortcuts": getAnswerKeyShortcuts(null, !disabled && filled && selected),
       defaultValue: controlled ? undefined : defaultValue,
       disabled,
       form: selected ? undefined : "",
@@ -143,7 +139,7 @@ function useQuestionnaireInput({
       value: controlled ? controlledValue : undefined,
     },
     state,
-  }
+  };
 }
 
-export { useQuestionnaireInput }
+export { useQuestionnaireInput };

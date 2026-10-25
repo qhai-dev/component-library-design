@@ -5,13 +5,13 @@ import {
   PaginationLink,
   PaginationPrevious,
   PaginationNext,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/Pagination",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -31,4 +31,4 @@ export const Default = {
       </PaginationContent>
     </Pagination>
   ),
-}
+};

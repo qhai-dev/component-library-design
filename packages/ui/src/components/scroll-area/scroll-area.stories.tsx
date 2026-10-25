@@ -1,10 +1,10 @@
-import { ScrollArea, ScrollBar } from "./index"
+import { ScrollArea, ScrollBar } from "./index";
 
 const meta = {
   title: "Components/ScrollArea",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,4 +13,4 @@ export const Default = {
       <ScrollBar />
     </ScrollArea>
   ),
-}
+};

@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -10,7 +10,7 @@ import {
   AlertDialogDescription,
   AlertDialogAction,
   AlertDialogCancel,
-} from "./index"
+} from "./index";
 
 describe("AlertDialog", () => {
   it("renders", () => {
@@ -20,9 +20,7 @@ describe("AlertDialog", () => {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This cannot be undone.
-            </AlertDialogDescription>
+            <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -30,6 +28,6 @@ describe("AlertDialog", () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>,
-    )
-  })
-})
+    );
+  });
+});

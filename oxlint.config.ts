@@ -1,4 +1,4 @@
-import { defineConfig } from "oxlint"
+import { defineConfig } from "oxlint";
 
 export default defineConfig({
   plugins: ["typescript", "unicorn", "react", "react-hooks"],
@@ -37,11 +37,5 @@ export default defineConfig({
       },
     },
   ],
-  ignorePatterns: [
-    "dist",
-    "node_modules",
-    "storybook-static",
-    "coverage",
-    "public",
-  ],
-})
+  ignorePatterns: ["dist", "node_modules", "storybook-static", "coverage", "public"],
+});

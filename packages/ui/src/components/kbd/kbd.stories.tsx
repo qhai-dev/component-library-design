@@ -1,10 +1,10 @@
-import { Kbd, KbdGroup } from "./index"
+import { Kbd, KbdGroup } from "./index";
 
 const meta = {
   title: "Components/Kbd",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -13,4 +13,4 @@ export const Default = {
       <Kbd>K</Kbd>
     </KbdGroup>
   ),
-}
+};

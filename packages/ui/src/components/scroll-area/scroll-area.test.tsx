@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react"
-import { describe, it } from "vitest"
-import { ScrollArea, ScrollBar } from "./index"
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import { ScrollArea, ScrollBar } from "./index";
 
 describe("ScrollArea", () => {
   it("renders", () => {
@@ -9,6 +9,6 @@ describe("ScrollArea", () => {
         <div>Long content</div>
         <ScrollBar />
       </ScrollArea>,
-    )
-  })
-})
+    );
+  });
+});

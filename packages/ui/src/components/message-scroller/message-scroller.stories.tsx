@@ -4,13 +4,13 @@ import {
   MessageScrollerViewport,
   MessageScrollerContent,
   MessageScrollerItem,
-} from "./index"
+} from "./index";
 
 const meta = {
   title: "Components/MessageScroller",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => (
@@ -24,4 +24,4 @@ export const Default = {
       </MessageScroller>
     </MessageScrollerProvider>
   ),
-}
+};

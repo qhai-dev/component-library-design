@@ -1,14 +1,14 @@
-import { Badge } from "./index"
+import { Badge } from "./index";
 
 const meta = {
   title: "Components/Badge",
-}
+};
 
-export default meta
+export default meta;
 
 export const Default = {
   render: () => <Badge>Badge</Badge>,
-}
+};
 
 export const Variants = {
   render: () => (
@@ -19,4 +19,4 @@ export const Variants = {
       <Badge variant="destructive">danger</Badge>
     </div>
   ),
-}
+};

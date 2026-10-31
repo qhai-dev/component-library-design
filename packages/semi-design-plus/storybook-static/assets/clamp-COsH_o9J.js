@@ -1,0 +1,1 @@
+import{r as t}from"./iframe-BafV5W3V.js";const r=t.createContext(void 0),a={disableStyleElements:!1};function E(){return t.useContext(r)??a}function u(e,n=Number.MIN_SAFE_INTEGER,o=Number.MAX_SAFE_INTEGER){return Math.max(n,Math.min(e,o))}export{u as c,E as u};

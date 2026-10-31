@@ -1,18 +1,11 @@
 # dependencies
 node_modules
-.pnp
-.pnp.js
 
 # build
 dist/
-build/
-*.tsbuildinfo
 
 # testing
 coverage
-
-# storybook
-storybook-static/
 
 # misc
 .DS_Store

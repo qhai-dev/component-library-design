@@ -1,8 +1,4 @@
 {
-  "name": "shadcn-semi-design-monorepo",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm --filter shadcn-semi-design test",
@@ -11,8 +7,8 @@
     "storybook": "pnpm --filter shadcn-semi-design storybook",
     "build-storybook": "pnpm --filter shadcn-semi-design build-storybook",
     "typecheck": "pnpm -r typecheck",
-    "lint": "oxlint -c oxlint.config.ts packages playground",
-    "lint:fix": "oxlint -c oxlint.config.ts --fix packages playground",
+    "lint": "rslint packages",
+    "lint:fix": "rslint --fix packages",
     "format": "oxfmt -c oxfmt.config.ts .",
     "format:check": "oxfmt -c oxfmt.config.ts --check .",
     "dev:docs": "pnpm --filter docs dev",
@@ -22,7 +18,14 @@
     "oxfmt": "^0.74.0",
     "oxlint": "^1.89.0"
   },
-  "engines": {
-    "node": ">=20"
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "10.15.1"
+    }
+  },
+  "dependencies": {
+    "@rslint/core": "^0.10.0",
+    "@rspress/core": "2.0.23"
   }
 }

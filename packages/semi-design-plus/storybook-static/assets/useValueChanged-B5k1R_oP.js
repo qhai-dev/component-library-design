@@ -1,1 +1,0 @@
-import{r as a}from"./iframe-BafV5W3V.js";import{u as o}from"./useIsoLayoutEffect-CCrGtNxN.js";import{u as n}from"./floating-ui.utils.dom-qEQ5XCbi.js";function m(r,s){const t=a.useRef(r),e=n(s);o(()=>{t.current!==r&&e(t.current)},[r,e]),o(()=>{t.current=r},[r])}export{m as u};

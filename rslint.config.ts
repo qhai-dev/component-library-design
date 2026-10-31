@@ -1,7 +1,3 @@
-// Migrated from oxlint.config.ts (see docs/README for mapping notes).
-// Oxlint's `categories: { correctness: "error" }` maps here to the
-// recommended presets of the same plugin groups; the per-file overrides
-// below preserve the original suppression intents.
 import {
   defineConfig,
   js,
@@ -19,7 +15,6 @@ export default defineConfig([
     ignores: [
       "**/dist/**",
       "**/node_modules/**",
-      "**/storybook-static/**",
       "**/coverage/**",
       "**/public/**",
     ],

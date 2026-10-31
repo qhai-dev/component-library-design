@@ -1,1 +1,0 @@
-import{d as e,P as n}from"./popupStateMapping-If9KDthm.js";function o(){return new e({open:!1,transitionStatus:void 0,floatingElement:null,referenceElement:null,triggerElements:new n,floatingId:void 0,syncOnly:!1,nested:!1,onOpenChange:void 0})}export{o as g};
